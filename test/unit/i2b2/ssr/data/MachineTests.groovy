@@ -1,7 +1,5 @@
 package i2b2.ssr.data
 
-
-
 import grails.test.mixin.*
 
 /**
@@ -12,9 +10,10 @@ class MachineTests {
 
     void testBasic() {
         Machine p = new Machine(name: "Dave", url: new URL("http://test.com"))
+
         assertEquals(p.name, "Dave")
         assertEquals("http://test.com", p.url.toString())
-        p.save()
+        p.save(failOnError: true)
         assertEquals(1, Machine.all.size())
         assertEquals("Dave", Machine.get(1).name)
     }
