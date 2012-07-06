@@ -8,5 +8,7 @@ class User {
 
 
     static constraints = {
+        userName unique: true
+        realName nullable: true
     }
 }

@@ -11,6 +11,6 @@ import grails.test.mixin.*
 class StudyTests {
 
     void testSomething() {
-       fail "Implement me"
+        Study
     }
 }
