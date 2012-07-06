@@ -1,4 +1,4 @@
-package i2b2.ssr.data
+package edu.chip.i2b2ssr.admin.data
 
 import grails.test.mixin.*
 
@@ -8,9 +8,8 @@ import grails.test.mixin.*
 @TestFor(Machine)
 class MachineTests {
 
-    void testBasic() {
+    void testCreateBasicMachine() {
         Machine p = new Machine(name: "Dave", url: new URL("http://test.com"))
-
         assertEquals(p.name, "Dave")
         assertEquals("http://test.com", p.url.toString())
         p.save(failOnError: true)

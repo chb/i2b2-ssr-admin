@@ -1,11 +1,10 @@
-package i2b2.ssr.data
+package edu.chip.i2b2ssr.admin.data
 
 class User {
 
     String userName
     String realName
     static hasMany = [studies: Study]
-
 
     static constraints = {
         userName unique: true
