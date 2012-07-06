@@ -1,4 +1,4 @@
-package i2b2.ssr.data
+package edu.chip.i2b2ssr.admin.data
 
 
 
@@ -11,6 +11,8 @@ import grails.test.mixin.*
 class UserTests {
 
     void testSomething() {
-       fail "Implement me"
+        User u = new User(userName: "Dave", realName: "Dave Ortiz")
+        u.save()
+        assertEquals(1,User.all.size())
     }
 }

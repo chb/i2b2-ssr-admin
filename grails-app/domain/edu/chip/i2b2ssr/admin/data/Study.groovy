@@ -1,4 +1,4 @@
-package i2b2.ssr.data
+package edu.chip.i2b2ssr.admin.data
 
 class Study {
 
