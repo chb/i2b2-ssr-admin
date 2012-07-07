@@ -24,7 +24,7 @@ class StudyTests {
      * we don't delete the Machine as well...
      */
     void testDontDeleteMachineIfPartOfStudy() {
-        Machine m1 = new Machine(name: "Test1", url: new URL("http://test1.com"))
+        Machine m1 = new Machine(name: "Test1", realName: "test", url: new URL("http://test1.com"))
 
         Study s1 = new Study(studyName: "TestStudy1", studyDescription: "Test1")
 

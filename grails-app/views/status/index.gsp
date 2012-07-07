@@ -1,17 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: daveortiz
-  Date: 7/6/12
-  Time: 5:25 PM
-  To change this template use File | Settings | File Templates.
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" %>
+<!doctype html>
 <html>
 <head>
-  <title></title>
+    <meta name="layout" content="main"/>
+    <title>I2B2SSR Administration</title>
 </head>
-<body>
 
+<body>
+Welcome to the status page
 </body>
 </html>

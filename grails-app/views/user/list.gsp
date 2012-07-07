@@ -1,17 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: daveortiz
-  Date: 7/6/12
-  Time: 4:50 PM
-  To change this template use File | Settings | File Templates.
---%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
-  <title></title>
-</head>
-<body>
+  <head>
+      <title>Grails.org Admin Area</title>
+      <meta content="subpage" name="layout" />
+  </head>
+  <body>
+        <h1>User List</h1>
+        <div id="contentPane">
+            <p>Use one of the admin interfaces below:</p>
 
-</body>
+        </div>
+  </body>
 </html>

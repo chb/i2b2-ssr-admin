@@ -10,7 +10,7 @@ import grails.test.mixin.*
 @TestFor(MachineService)
 class MachineServiceTests {
 
-    void testSomething() {
+    void test() {
         fail "Implement me"
     }
 }
