@@ -9,7 +9,7 @@ import grails.test.mixin.*
 class MachineTests {
 
     void testCreateBasicMachine() {
-        Machine p = new Machine(name: "Dave", url: new URL("http://test.com"))
+        Machine p = new Machine(name: "Dave", realName: "test", url: new URL("http://test.com"))
         assertEquals(p.name, "Dave")
         assertEquals("http://test.com", p.url.toString())
         p.save(failOnError: true)

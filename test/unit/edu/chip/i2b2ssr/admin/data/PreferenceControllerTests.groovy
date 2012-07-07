@@ -3,7 +3,8 @@ package edu.chip.i2b2ssr.admin.data
 
 
 import grails.test.mixin.*
-import org.junit.*
+
+import edu.chip.i2b2ssr.admin.PreferenceController
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions

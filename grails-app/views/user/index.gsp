@@ -1,9 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<!doctype html>
 <html>
 <head>
-  <title></title>
+    <meta name="layout" content="main"/>
+    <title>I2B2SSR Administration</title>
 </head>
-<body>
 
+<body>
+Welcome to the User page
 </body>
 </html>
