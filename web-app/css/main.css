@@ -135,8 +135,7 @@ img {
 }
 
 /* NAVIGATION MENU */
-
-.nav {
+nav {
 	background-color: #efefef;
 	padding: 0.5em 0.75em;
 	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;

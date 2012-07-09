@@ -18,15 +18,19 @@
 </head>
 
 <body>
-<div id="grailsLogo" role="banner"><img src="${resource(dir: 'images', file: 'carranet.png')}" alt="Grails"/>
+<div id="grailsLogo" role="banner"><img src="${resource(dir: 'images', file: 'carranet.png')}" alt="carranet"/>
+
     <p>Administration Tool</p>
 </div>
 
-<div id="status" role="complementary">
-    <h1>Administrative Areas</h1>
+<div class="nav" role="navigation">
     <ul>
+        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.name }}">
-            <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.name}</g:link></li>
+            <g:if test="${c.hasProperty("menuName")}">
+                <li class="controller"><g:link
+                        controller="${c.logicalPropertyName}">${c.getPropertyValue("menuName")}</g:link></li>
+            </g:if>
         </g:each>
     </ul>
 </div>
