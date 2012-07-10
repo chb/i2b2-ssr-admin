@@ -4,6 +4,11 @@ class MachineController {
     String menuName = "Edit Machines"
 
     def index() {
-
+      redirect(action: list)
     }
+
+
+    def list = {}
+
+
 }
