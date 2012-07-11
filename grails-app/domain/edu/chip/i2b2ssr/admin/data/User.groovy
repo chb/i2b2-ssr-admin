@@ -4,6 +4,7 @@ class User {
 
     String userName
     String realName
+    String institutionName
     static hasMany = [studies: Study]
 
     static constraints = {
