@@ -10,6 +10,6 @@
 <g:if test="${flash.message}">
     <div class="message">${flash.message}</div>
 </g:if>
-<g:render model="${pageScope.variables}" template="form"/>
+<g:render template="form"/>
 </body>
 </html>
