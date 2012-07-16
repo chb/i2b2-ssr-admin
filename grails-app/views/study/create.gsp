@@ -6,6 +6,10 @@
 </head>
 
 <body>
-Welcome to the User page
+
+<g:if test="${flash.message}">
+    <div class="message">${flash.message}</div>
+</g:if>
+<g:render template="form"/>
 </body>
 </html>

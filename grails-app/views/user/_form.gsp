@@ -1,38 +1,40 @@
 <div id="userForm">
-    <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-    </g:if>
-    <g:form action="update">
+    <g:form action="save">
+        <g:hiddenField name="id" value="${user?.id}"/>
         <table>
+
             <tr>
+                <td><label for="userName">Username:</label></td>
                 <td>
-                    <label for="userName">Username:</label>
-                </td>
-                <td>
-                    <input type="text" id="userName" name="ldapAddre ss"
-                           value="${fieldValue(bean: user, field: 'userName')}"/>
+                    <g:textField id="userName" name="userName" value="${user?.userName}" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="ldapDN">Real name:</label>
+                    <label for="realName">Real name:</label>
                 </td>
                 <td>
-                    <input type="text" id="ldapDN" name="ldapBaseDN"
-                           value="${fieldValue(bean: preference, field: 'ldapBaseDN')}"/>
+                    <g:textField id="realName" name="realName" value="${user?.realName}" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="shrineAddress">SHRINE Cell Address:</label>
+                    <label for="institutionName">Institution:</label>
                 </td>
                 <td>
-                    <input type="text" id="shrineAddress" name="shrineCell"
-                           value="${fieldValue(bean: preference, field: 'shrineCell')}"/>
+                    <g:textField id="institutionName" name="institutionName" value="${user?.institutionName}" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="studies">Studies:</label>
+                </td>
+                <td>
+                    <g:select name="studies" id="studies" from="${studies}" optionKey="id" value="${user?.studies*.id}" optionValue="studyName" multiple="true"/>
                 </td>
             </tr>
         </table>
 
-        <g:submitButton name="save" value="Save"/>
+        <g:submitButton name="save" value="save"/>
     </g:form>
 </div>

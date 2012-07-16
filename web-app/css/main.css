@@ -425,6 +425,8 @@ td, th {
 	vertical-align: top;
 }
 
+
+
 th {
 	background-color: #efefef;
 	background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
@@ -590,6 +592,13 @@ th:hover, tr:hover {
 
 .buttons .save {
 	background-image: url(../images/skin/database_save.png);
+}
+
+.addbutton {
+    background-image: url(../images/skin/database_save.png);
+    background-position: 0.7em center;
+   	background-repeat: no-repeat;
+   	text-indent: 25px;
 }
 
 a.skip {
