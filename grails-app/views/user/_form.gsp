@@ -6,7 +6,7 @@
             <tr>
                 <td><label for="userName">Username:</label></td>
                 <td>
-                    <g:textField id="userName" name="userName" value="${user?.userName}" />
+                    <g:textField id="userName" name="userName" value="${user?.userName}"/>
                 </td>
             </tr>
             <tr>
@@ -14,7 +14,7 @@
                     <label for="realName">Real name:</label>
                 </td>
                 <td>
-                    <g:textField id="realName" name="realName" value="${user?.realName}" />
+                    <g:textField id="realName" name="realName" value="${user?.realName}"/>
                 </td>
             </tr>
             <tr>
@@ -22,18 +22,21 @@
                     <label for="institutionName">Institution:</label>
                 </td>
                 <td>
-                    <g:textField id="institutionName" name="institutionName" value="${user?.institutionName}" />
+                    <g:textField id="institutionName" name="institutionName" value="${user?.institutionName}"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="studies">Studies:</label>
+                    <label for="homesites">Home Sites:</label>
                 </td>
                 <td>
-                    <g:select name="studies" id="studies" from="${studies}" optionKey="id" value="${user?.studies*.id}" optionValue="studyName" multiple="true"/>
+                    <g:select name="homesites" id="homesites" from="${machines}" optionKey="id"
+                              value="${user?.homesites*.id}"
+                              optionValue="name" multiple="true"/>
                 </td>
             </tr>
         </table>
+
 
         <g:submitButton name="save" value="save"/>
     </g:form>

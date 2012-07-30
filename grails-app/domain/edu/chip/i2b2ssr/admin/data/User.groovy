@@ -5,10 +5,14 @@ class User {
     String userName
     String realName
     String institutionName
-    static hasMany = [studies: Study]
+
+    static hasMany = [permissions: Permission, homesites: Machine]
+
+
 
     static constraints = {
         userName unique: true
         realName nullable: true
+        institutionName nullable: true
     }
 }
