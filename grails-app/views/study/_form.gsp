@@ -29,6 +29,7 @@
                 </td>
             </tr>
         </table>
+
         <g:submitButton name="save" value="save"/>
     </g:form>
 </div>

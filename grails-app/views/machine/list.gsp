@@ -9,9 +9,7 @@
 <h1>Machine List</h1>
 
 <div id="contentPane">
-    <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-    </g:if>
+
 
     <table id="machineTable">
         <!-- Table header -->

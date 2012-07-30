@@ -11,10 +11,7 @@
 
 
 <div id="editPane">
-    <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-    </g:if>
-    <g:form action="update">
+    <g:form action="updateAll">
         <table>
             <tr>
                 <td>

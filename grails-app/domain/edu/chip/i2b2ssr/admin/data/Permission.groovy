@@ -8,7 +8,7 @@ class Permission {
 
     static belongsTo = [User]
     static constraints = {
-        id composite:['id','user','study']
+        user unique: 'study'
     }
 
 

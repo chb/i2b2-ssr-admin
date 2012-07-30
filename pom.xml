@@ -116,9 +116,7 @@
         <groupId>org.grails</groupId>
         <artifactId>grails-maven-plugin</artifactId>
         <version>${grails.version}</version>
-        <configuration>
-            <fork></fork>
-        </configuration>        
+
         <extensions>true</extensions>
         <executions>
           <execution>
