@@ -2,15 +2,17 @@ package edu.chip.i2b2ssr.admin
 
 import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.data.Study
+import edu.chip.i2b2ssr.admin.data.Machine
 
 class UserController {
     String menuName = "Edit Users"
 
 
-    static allowedMethods = [list:'GET', show:'GET', delete: 'DELETE']
+    static allowedMethods = [list: 'GET', show: 'GET', delete: 'DELETE']
 
     def index = {
-        redirect(action: "list", params: params) }
+        redirect(action: "list", params: params)
+    }
 
     def list = {
         [users: User.all]
@@ -21,30 +23,29 @@ class UserController {
     }
 
     def edit = {
-        [user: User.get(params.id),
-         studies: Study.all]
+        User u = User.get(params.id)
+        [user: u, machines: Machine.all, studies: Study.all]
     }
 
     def save = {
         User u;
         String message;
-        if(params?.id){
+        if (params?.id) {
             u = User.get(params.id)
             u.setProperties(params)
             message = "Updated user ${params.userName}"
         }
-        else{
+        else {
             u = new User(params)
             message = "Created user ${params.userName}"
         }
 
-
         //List<Study> = Study.
-        if (!u.hasErrors() && u.save()){
+        if (!u.hasErrors() && u.save()) {
             flash.message = message
             redirect(action: list)
         }
-        else{
+        else {
             flash.message = "Failure saving user ${params.userName}"
             redirect(action: create)
         }
@@ -52,8 +53,9 @@ class UserController {
 
     }
 
-    def create ={
-       [studies : Study.all]
+    def create = {
+        [studies: Study.all,
+        machines: Machine.all]
     }
 
     def delete = {

@@ -9,11 +9,6 @@
 <h1>Study List</h1>
 
 <div id="contentPane">
-    <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-    </g:if>
-
-
     <table id="studyTable">
         <!-- Table header -->
 

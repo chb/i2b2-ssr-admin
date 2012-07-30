@@ -37,6 +37,9 @@
         </g:each>
     </ul>
 </div>
+<g:if test="${flash.message}">
+    <div class="message">${flash.message}</div>
+</g:if>
 <g:layoutBody/>
 <div class="footer" role="contentinfo"></div>
 

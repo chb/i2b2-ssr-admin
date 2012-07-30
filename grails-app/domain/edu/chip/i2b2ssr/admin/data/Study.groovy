@@ -4,11 +4,12 @@ class Study {
 
     String studyName
     String studyDescription
-    static hasMany = [machines: Machine, users : User]
-    static belongsTo = User
+    static hasMany = [machines: Machine, permission: Permission]
     static constraints = {
         studyName unique: true
         studyDescription nullable: true
 
     }
+
+
 }

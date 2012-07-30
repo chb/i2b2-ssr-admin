@@ -6,8 +6,6 @@
 </head>
 
 <body>
-
-
-<g:render model="${pageScope.variables}" template="form"/>
+<g:render template="form"/>
 </body>
 </html>
