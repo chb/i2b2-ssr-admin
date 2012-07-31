@@ -9,8 +9,7 @@ import grails.converters.JSON
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(Permission)
-@Mock(User)
-@Mock(Study)
+@Mock([User, Study])
 class PermissionTests {
 
     void TestPermissions() {
