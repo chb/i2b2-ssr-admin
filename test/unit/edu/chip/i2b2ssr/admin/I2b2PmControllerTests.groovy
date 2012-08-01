@@ -69,6 +69,7 @@ class I2b2PmControllerTests {
     </i2b2:request>
   """
 
+  @SuppressWarnings("unchecked")
   void testPMAuthentication() {
     def authServiceMock = mockFor(AuthenticationService)
     //Add a default preference object
@@ -95,11 +96,6 @@ class I2b2PmControllerTests {
     assert model.session == q
     assert model.user == u
     assert model.preference == p
-
-
-    println(controller.response.text)
-
-
   }
 
 

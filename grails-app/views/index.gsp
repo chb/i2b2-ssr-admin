@@ -7,7 +7,6 @@
 
 <body>
 
-
 <div>
     <p>Welcome to the Carranet Administration home page</p>
 </div>
