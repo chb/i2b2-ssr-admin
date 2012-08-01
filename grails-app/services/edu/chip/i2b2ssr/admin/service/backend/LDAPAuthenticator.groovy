@@ -7,6 +7,7 @@ import com.unboundid.ldap.sdk.LDAPException
 import com.unboundid.ldap.sdk.SearchResult
 import com.unboundid.ldap.sdk.SearchScope
 import edu.chip.i2b2ssr.admin.service.exception.PermissionException
+import org.apache.commons.logging.LogFactory
 
 /**
  * @author Dave Ortiz
@@ -28,7 +29,7 @@ class LDAPAuthenticator implements IAuthenticator {
   private String userIdentifier
   private LDAPConnectionPool pool
 
-
+  private static final log = LogFactory.getLog(this)
 
   def LDAPAuthenticator(String ldapAddress, int ldapPort, String ldapBindDn,
           String ldapBindPassword, String baseDn, String userIdentifier)
@@ -73,9 +74,9 @@ class LDAPAuthenticator implements IAuthenticator {
         return false
       }
 
-
     } catch(LDAPException e) {
-      log.error("Recieved LDAP exception", e);
+
+      log.error("Recieved LDAP exception");
       return false
     }
 

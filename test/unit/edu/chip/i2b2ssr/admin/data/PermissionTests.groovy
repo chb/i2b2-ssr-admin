@@ -12,7 +12,7 @@ import grails.converters.JSON
 @Mock([User, Study])
 class PermissionTests {
 
-    void TestPermissions() {
+    void testPermissions() {
         //Create a test study with no machines
         Study s = new Study(studyName: "test", studyDescription: "test")
         s.save(failOnError: true)
@@ -23,8 +23,7 @@ class PermissionTests {
         u.addToPermissions(p)
         p.setStudy(s)
 
-
-
-
+      assertEquals(true, u.permissions.contains(p))
+      assertEquals(true, p.study.equals(s))
     }
 }

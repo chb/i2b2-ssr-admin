@@ -9,22 +9,25 @@ class AuthenticationService {
 
   IAuthenticator authenticator
 
+  /**
+   *
+   * @param username
+   * @param password
+   * @return returns a User object if authentication is successful and null otherwise
+   */
   def User authenticate(String username, String password) {
     User user = User.findByUserName(username)
 
     if(authenticator.authenticate(username, password)) {
       //If the user is in the LDAP and there's no users in the system
       //just create a new one and make them the admin, it's no ideal but eh...
-      if(u == null && User.count == 0) {
+      if(user == null && User.count == 0) {
         User newUser = new User(userName: username, isAdmin: true)
         newUser.save()
         user = newUser
       }
-
-
       return user
     }
-
     return null
   }
 
