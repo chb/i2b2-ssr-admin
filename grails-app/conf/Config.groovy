@@ -59,6 +59,13 @@ grails.exceptionresolver.params.exclude = ['password']
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
 
+/*
+    I2B2-SSR CONFIG BEGINS HERE
+ */
+
+//How long query sessions last in minutes
+i2b2ssr.querySessionTimeout = 30
+
 environments {
     development {
         grails.logging.jul.usebridge = true
