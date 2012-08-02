@@ -1,9 +1,10 @@
 package edu.chip.i2b2ssr.admin.service
 
-import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.data.QuerySession
-import static java.util.UUID.randomUUID
+import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.service.backend.IAuthenticator
+
+import static java.util.UUID.randomUUID
 
 class AuthenticationService {
     def grailsApplication
