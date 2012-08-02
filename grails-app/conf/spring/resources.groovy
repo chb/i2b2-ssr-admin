@@ -1,7 +1,6 @@
-import edu.chip.i2b2ssr.admin.data.Preference
-import grails.util.Environment
 import edu.chip.i2b2ssr.admin.service.AuthenticationService
 import edu.chip.i2b2ssr.admin.service.backend.IAuthenticator
+import grails.util.Environment
 
 // Place your Spring DSL code here
 beans = {
