@@ -42,5 +42,16 @@ class AuthenticationService {
     return q;
   }
 
+  def boolean checkSessionKey(String username, String sessionKey) {
+
+    def time = Calendar.getInstance().add(Calendar.MINUTE, -30)
+
+
+    def query = QuerySession.where {
+      user.userName == username && sessionKey == sessionKey && created >= time
+    }
+    return query.count() > 0
+
+  }
 
 }

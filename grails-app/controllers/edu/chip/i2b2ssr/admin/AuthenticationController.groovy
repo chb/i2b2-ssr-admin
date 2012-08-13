@@ -1,14 +1,20 @@
 package edu.chip.i2b2ssr.admin
 
+import edu.chip.i2b2ssr.admin.service.AuthenticationService
+
 class AuthenticationController {
 
-    def index() { }
+  AuthenticationService service
 
-    def login = {
+  def callback = {
+    String username = params.username
+    String sessionKey = params.sessionkey
 
-        String username = params.username
-        String password = params.password
-
-
+    if(service.checkSessionKey(username, sessionKey)){
+      render("ok")
     }
+    else{
+      render(text: "bad SessionKey", status: 403)
+    }
+  }
 }
