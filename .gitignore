@@ -28,3 +28,5 @@ build.log
 pipeline.log
 *.db
 *.lg
+plugins/
+out/
