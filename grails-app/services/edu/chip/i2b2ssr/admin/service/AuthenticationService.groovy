@@ -66,11 +66,9 @@ class AuthenticationService {
 
   def boolean checkSessionKey(String username, String sessionKey) {
 
-    def time = Calendar.getInstance().add(Calendar.MINUTE, -30)
-
-
+    def time = Calendar.getInstance().add(Calendar.MINUTE, (grailsApplication.config.i2b2ssr.querySessionTimeout * -1))
     def query = QuerySession.where {
-      user.userName == username && sessionKey == sessionKey && created >= time
+      user.userName == username && sessionId == sessionKey && created >= time
     }
     return query.count() > 0
 

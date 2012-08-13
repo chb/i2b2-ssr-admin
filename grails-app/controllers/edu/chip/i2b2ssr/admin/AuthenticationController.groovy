@@ -14,7 +14,7 @@ class AuthenticationController {
       render("ok")
     }
     else{
-      render(text: "bad SessionKey", status: 403)
+      render(text: "Bad SessionKey", status: 403)
     }
   }
 }
