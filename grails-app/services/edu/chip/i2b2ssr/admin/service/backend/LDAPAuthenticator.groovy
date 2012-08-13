@@ -1,13 +1,8 @@
 package edu.chip.i2b2ssr.admin.service.backend
 
-import com.unboundid.ldap.sdk.DN
-import com.unboundid.ldap.sdk.LDAPConnection
-import com.unboundid.ldap.sdk.LDAPConnectionPool
-import com.unboundid.ldap.sdk.LDAPException
-import com.unboundid.ldap.sdk.SearchResult
-import com.unboundid.ldap.sdk.SearchScope
 import edu.chip.i2b2ssr.admin.service.exception.PermissionException
 import org.apache.commons.logging.LogFactory
+import com.unboundid.ldap.sdk.*
 
 /**
  * @author Dave Ortiz

@@ -1,8 +1,8 @@
 package edu.chip.i2b2ssr.admin
 
 import edu.chip.i2b2ssr.admin.data.Permission
-import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.data.Study
+import edu.chip.i2b2ssr.admin.data.User
 
 /**
  * Controller for the Permission editor
