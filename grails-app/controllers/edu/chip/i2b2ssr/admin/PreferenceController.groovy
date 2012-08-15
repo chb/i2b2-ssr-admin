@@ -7,7 +7,6 @@ class PreferenceController {
     Preference preference
 
     def index() {
-
         redirect(action: editPrefs, params: params)
     }
 
