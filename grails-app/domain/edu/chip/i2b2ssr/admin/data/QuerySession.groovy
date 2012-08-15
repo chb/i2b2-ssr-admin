@@ -1,7 +1,5 @@
 package edu.chip.i2b2ssr.admin.data
 
-import java.sql.Timestamp
-
 
 class QuerySession {
   User user
@@ -10,7 +8,13 @@ class QuerySession {
 
   static belongsTo = [User]
 
+  static mapping = {
+      sessionId column: [length: 50]
+  }
+
   static constraints = {
     sessionId unique: true
+
+
   }
 }
