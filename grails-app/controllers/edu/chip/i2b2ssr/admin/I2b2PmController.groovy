@@ -6,7 +6,7 @@ import edu.chip.i2b2ssr.admin.service.AuthenticationService
 import edu.chip.i2b2ssr.admin.service.exception.PermissionException
 
 class I2b2PmController {
-  AuthenticationService service
+  AuthenticationService authService
 
   static allowedMethods = [getServices: 'POST']
 
@@ -19,7 +19,7 @@ class I2b2PmController {
     String username = node.message_header.security.username.text()
     String password = node.message_header.security.password.text()
 
-    QuerySession q = service.authenticateWithSession(username, password)
+    QuerySession q = authService.authenticateWithSession(username, password)
 
     if(!q){
       throw new PermissionException("couldn't auth for PM")
