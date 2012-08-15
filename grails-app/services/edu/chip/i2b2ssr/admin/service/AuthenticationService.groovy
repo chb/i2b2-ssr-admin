@@ -5,6 +5,7 @@ import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.service.backend.IAuthenticator
 
 import static java.util.UUID.randomUUID
+import edu.chip.i2b2ssr.admin.data.Permission
 
 class AuthenticationService {
     def grailsApplication
@@ -54,7 +55,7 @@ class AuthenticationService {
     def void cleanupQuerySessions(Integer timeout) {
         Calendar c1 = Calendar.getInstance()
         c1.add(Calendar.MINUTE, (timeout * -1))
-        for(session in QuerySession.findAllByCreatedLessThan(c1.getTime())){
+        for (session in QuerySession.findAllByCreatedLessThan(c1.getTime())) {
             session.delete(flush: true)
         }
     }
@@ -64,14 +65,23 @@ class AuthenticationService {
 
     }
 
-  def boolean checkSessionKey(String username, String sessionKey) {
+    def boolean checkSessionKey(String username, String sessionKey) {
 
-    def time = Calendar.getInstance().add(Calendar.MINUTE, (grailsApplication.config.i2b2ssr.querySessionTimeout * -1))
-    def query = QuerySession.where {
-      user.userName == username && sessionId == sessionKey && created >= time
+        def time = Calendar.getInstance().add(Calendar.MINUTE, (grailsApplication.config.i2b2ssr.querySessionTimeout * -1))
+        def query = QuerySession.where {
+            user.userName == username && sessionId == sessionKey && created >= time
+        }
+        return query.count() > 0
     }
-    return query.count() > 0
 
-  }
+    def Permission findPermission(String username, String projectName) {
+        def permission = Permission.where {
+            user.userName == username && study.studyName == projectName
+        }.get()
+
+        return permission
+
+
+    }
 
 }
