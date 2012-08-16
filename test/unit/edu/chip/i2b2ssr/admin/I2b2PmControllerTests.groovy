@@ -86,7 +86,7 @@ class I2b2PmControllerTests {
     authServiceMock.demand.authenticateWithSession {String userName, String Password ->
       return q
     }
-    controller.service = authServiceMock.createMock()
+    controller.authService = authServiceMock.createMock()
 
     request.method = "POST"
     request.content = pmAuthString.bytes
