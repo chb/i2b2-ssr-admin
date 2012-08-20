@@ -9,7 +9,7 @@ class QuerySession {
   static belongsTo = [User]
 
   static mapping = {
-      sessionId column: [length: 50]
+      sessionId maxSize: 100
   }
 
   static constraints = {
