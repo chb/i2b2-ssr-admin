@@ -1,4 +1,3 @@
-<meta content="application/xml" http-equiv="Content-type"/>
 <?xml version="1.0" encoding="UTF-8"?>
 <ns2:response xmlns:ns2="http://www.i2b2.org/xsd/hive/msg/1.1/"
               xmlns:ns4="http://www.i2b2.org/xsd/cell/pm/1.1/"
@@ -70,7 +69,7 @@
       <cell_datas>
         <cell_data id="CRC">
           <name>Data Repository</name>
-          <url>${preference?.crcURI}</url>
+          <url>${preference?.shrineCell}</url>
           <project_path>/</project_path>
           <method>REST</method>
           <can_override>true</can_override>
