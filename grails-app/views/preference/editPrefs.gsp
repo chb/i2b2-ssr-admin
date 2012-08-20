@@ -11,7 +11,7 @@
 
 
 <div id="editPane">
-    <g:form action="updateAll">
+    <g:form action="update">
         <table>
             <tr>
                 <td>
