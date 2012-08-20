@@ -13,24 +13,24 @@
 <div id="editPane">
     <g:form action="update">
         <table>
-            <tr>
-                <td>
-                    <label for="ldapAddress">LDAP Server Address:</label>
-                </td>
-                <td>
-                    <input type="text" id="ldapAddress" name="ldapAddre ss"
-                           value="${fieldValue(bean: preference, field: 'ldapAddress')}"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="ldapDN">LDAP base Search DN:</label>
-                </td>
-                <td>
-                    <input type="text" id="ldapDN" name="ldapBaseDN"
-                           value="${fieldValue(bean: preference, field: 'ldapBaseDN')}"/>
-                </td>
-            </tr>
+            %{--<tr>--}%
+                %{--<td>--}%
+                    %{--<label for="ldapAddress">LDAP Server Address:</label>--}%
+                %{--</td>--}%
+                %{--<td>--}%
+                    %{--<input type="text" id="ldapAddress" name="ldapAddre ss"--}%
+                           %{--value="${fieldValue(bean: preference, field: 'ldapAddress')}"/>--}%
+                %{--</td>--}%
+            %{--</tr>--}%
+            %{--<tr>--}%
+                %{--<td>--}%
+                    %{--<label for="ldapDN">LDAP base Search DN:</label>--}%
+                %{--</td>--}%
+                %{--<td>--}%
+                    %{--<input type="text" id="ldapDN" name="ldapBaseDN"--}%
+                           %{--value="${fieldValue(bean: preference, field: 'ldapBaseDN')}"/>--}%
+                %{--</td>--}%
+            %{--</tr>--}%
             <tr>
                 <td>
                     <label for="shrineAddress">SHRINE Cell Address:</label>

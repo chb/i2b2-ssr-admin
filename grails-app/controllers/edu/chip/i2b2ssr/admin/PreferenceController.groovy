@@ -27,13 +27,6 @@ class PreferenceController {
     }
 
     Preference getPreference() {
-        if (Preference.all.size() == 0) {
-            Preference p1 = new Preference().save(failOnError: true)
-            return p1
-        }
-        else {
             return Preference.all.first()
-        }
-
     }
 }
