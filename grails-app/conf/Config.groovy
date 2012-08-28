@@ -63,6 +63,8 @@ grails.hibernate.cache.queries = false
     I2B2-SSR CONFIG BEGINS HERE
  */
 
+
+
 //How long query sessions last in minutes
 i2b2ssr.querySessionTimeout = 30
 
@@ -95,4 +97,6 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+  debug 'grails.app.jobs'
 }

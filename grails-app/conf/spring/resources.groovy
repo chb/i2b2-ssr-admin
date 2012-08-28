@@ -5,22 +5,6 @@ import edu.chip.i2b2ssr.admin.service.backend.LDAPAuthenticator
 
 // Place your Spring DSL code here
 beans = {
-  //Setup background QueryServiceSweeper
-  doQuerySessionTimerTask(org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean) {
-    targetObject = ref("authenticationService")
-    targetMethod = 'cleanupQuerySessions'
-  }
-
-  doQuerySessionScheduledTimerTask(org.springframework.scheduling.timer.ScheduledTimerTask) {
-    delay = 60000
-    period = 60000
-    timerTask = ref('doQuerySessionTimerTask')
-  }
-
-  timerFactory(org.springframework.scheduling.timer.TimerFactoryBean) {
-    scheduledTimerTasks = [ref('doQuerySessionScheduledTimerTask')]
-  }
-
   switch(Environment.current) {
     case Environment.DEVELOPMENT:
       authService(AuthenticationService) {
