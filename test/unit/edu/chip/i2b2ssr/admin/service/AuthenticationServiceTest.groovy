@@ -1,7 +1,6 @@
 package edu.chip.i2b2ssr.admin.service
 
 import grails.test.mixin.TestFor
-import edu.chip.i2b2ssr.admin.service.AuthenticationService
 import edu.chip.i2b2ssr.admin.data.QuerySession
 import grails.test.mixin.Mock
 import edu.chip.i2b2ssr.admin.data.User

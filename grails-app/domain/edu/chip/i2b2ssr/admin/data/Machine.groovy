@@ -2,8 +2,8 @@ package edu.chip.i2b2ssr.admin.data
 
 class Machine {
 
-    static def MACHINE_GOOD = "Good"
-    static def MACHINE_UNKNOWN = "Unknown"
+    static def SHRINE_OK = "Good"
+    static def MACHINE_AVAILABLE = "Available"
     static def MACHINE_BAD = "Bad"
 
     String name
@@ -16,8 +16,8 @@ class Machine {
     static constraints = {
         certificate nullable: true
         name unique: true
-        status(nullable: true, is: ([MACHINE_GOOD,
-                MACHINE_UNKNOWN,
+        status(nullable: true, is: ([SHRINE_OK,
+                MACHINE_AVAILABLE,
                 MACHINE_BAD]))
     }
 
