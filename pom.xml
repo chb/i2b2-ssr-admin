@@ -49,6 +49,13 @@
 
         <dependency>
             <groupId>org.grails.plugins</groupId>
+            <artifactId>quartz2</artifactId>
+            <version>0.2.3</version>
+            <type>zip</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.grails.plugins</groupId>
             <artifactId>jquery</artifactId>
             <version>1.7.1</version>
             <type>zip</type>
