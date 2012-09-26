@@ -15,7 +15,7 @@ class I2b2PmController {
     def xml = request.reader.text
 
     def node = new XmlSlurper().parseText(xml)
-
+                                                                                            w
     String username = node.message_header.security.username.text()
     String password = node.message_header.security.password.text()
 
