@@ -41,7 +41,7 @@ class AuthenticationService {
         if (u) {
             q = new QuerySession(sessionId: randomUUID())
             u.addToQuerySessions(q)
-            u.save()
+            q.save(failOnError: true)
         }
         return q;
     }
