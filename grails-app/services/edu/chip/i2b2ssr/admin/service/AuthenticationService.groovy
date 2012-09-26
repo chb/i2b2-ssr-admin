@@ -39,7 +39,7 @@ class AuthenticationService {
         User u = authenticate(username, password)
         QuerySession q;
         if (u) {
-            q = new QuerySession(sessionId: randomUUID())
+            q = new QuerySession(sessionId: randomUUID().toString())
             u.addToQuerySessions(q)
             q.save(failOnError: true)
         }
