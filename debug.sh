@@ -1,0 +1,1 @@
+grails-debug -Dserver.port=9090 prod run-app
