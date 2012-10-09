@@ -10,9 +10,6 @@
 <body>
 <div class="body">
   <h1>Login</h1>
-  <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
-  </g:if>
   <g:form action="auth" method="post">
     <div class="dialog">
       <table>
