@@ -36,7 +36,7 @@
                     <label for="shrineAddress">SHRINE Cell Address:</label>
                 </td>
                 <td>
-                    <input type="text" id="shrineAddress" name="shrineCell"
+                    <input size="70" type="text" id="shrineAddress" name="shrineCell"
                            value="${fieldValue(bean: preference, field: 'shrineCell')}"/>
                 </td>
             </tr>
@@ -45,7 +45,7 @@
                     <label for="ontCell">Ontology Cell Address:</label>
                 </td>
                 <td>
-                    <input type="text" id="ontCell" name="i2b2OntCell"
+                    <input size="70" type="text" id="ontCell" name="i2b2OntCell"
                            value="${fieldValue(bean: preference, field: 'i2b2OntCell')}"/>
                 </td>
             </tr>
