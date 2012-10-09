@@ -27,7 +27,9 @@ class UserController {
     }
   }
 
-  def login = {}
+  def login = {
+
+  }
 
   def logout ={
     session.user = null
