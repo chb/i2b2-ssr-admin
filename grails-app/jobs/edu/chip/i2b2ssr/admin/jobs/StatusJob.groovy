@@ -30,9 +30,10 @@ class StatusJob {
         log.info("Checking host " + m.realName)
         if(InetAddress.getByName(m.url.getHost()).isReachable(100)) {
           m.setStatus(Machine.MACHINE_AVAILABLE)
-        }
-        else if(m.url.getContent()) {
-          m.setStatus(Machine.SHRINE_OK)
+          if(m.url.getContent()) {
+            m.setStatus(Machine.SHRINE_OK)
+          }
+          m.save()
         }
         else {
           m.setStatus(Machine.MACHINE_BAD)
