@@ -49,7 +49,7 @@ class LDAPAuthenticator implements IAuthenticator {
   def boolean authenticate(String username, String password) {
     try {
 
-      SearchResult sr = pool.search(basedn,
+      SearchResult sr = pool.search(baseDn,
               SearchScope.SUB, (userIdentifier + "=" + username));
 
       if(sr.getSearchEntries().size() < 1) {
