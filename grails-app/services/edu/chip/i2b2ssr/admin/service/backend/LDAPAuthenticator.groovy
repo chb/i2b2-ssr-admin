@@ -29,7 +29,6 @@ class LDAPAuthenticator implements IAuthenticator {
   def LDAPAuthenticator(String ldapAddress, int ldapPort, String ldapBindDn,
           String ldapBindPassword, String baseDn, String userIdentifier)
   throws LDAPException {
-
     this.baseDn = baseDn
     this.userIdentifier = userIdentifier
     LDAPConnection con = new LDAPConnection(ldapAddress, ldapPort, ldapBindDn, ldapBindPassword)
@@ -41,7 +40,7 @@ class LDAPAuthenticator implements IAuthenticator {
     this.baseDn = baseDn;
     this.userIdentifier = userIdentifier;
 
-    LDAPConnection con = new LDAPConnection(ldapAddress, ldapPort);
+    LDAPConnection con = new LDAPConnection(ldapAddress, ldapPort,);
     pool = new LDAPConnectionPool(con, 10, 20);
   }
 
@@ -49,19 +48,15 @@ class LDAPAuthenticator implements IAuthenticator {
   def boolean authenticate(String username, String password) {
     try {
 
-      SearchResult sr = pool.search(baseDn,
-              SearchScope.SUB, (userIdentifier + "=" + username));
-
+      SearchResult sr = pool.search(baseDn, SearchScope.SUB, (userIdentifier + "=" + username));
       if(sr.getSearchEntries().size() < 1) {
         throw new PermissionException("No such user");
       }
-      String dn = sr.getSearchEntries().get(0).getDN();
 
-      DN userDN = new DN(dn);
 
-      if(r.getEntryCount() > 0 && ldap.bind(dn, pass) != null) {
-        //If this doesn't throw an Exception, we're A-OK
-        pool.bind(dn, pass);
+      if(sr.getEntryCount() > 0) {
+        String dn = sr.getSearchEntries().get(0).getDN();
+        pool.bind(dn, password);
         return true
 
       }
@@ -70,8 +65,7 @@ class LDAPAuthenticator implements IAuthenticator {
       }
 
     } catch(LDAPException e) {
-
-      log.error("Recieved LDAP exception");
+      log.error("Recieved LDAP exception: " + e.message);
       return false
     }
 
