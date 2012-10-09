@@ -18,7 +18,7 @@ import edu.chip.i2b2ssr.admin.data.Machine
 class StatusJob {
   static triggers = {
     //run once per minute until Networking yells at me
-    simple name: 'mySimpleTrigger', startDelay: 60000, repeatInterval: 60000
+    simple  name: 'mySimpleTrigger', startDelay: 60000, repeatInterval: 60000
   }
   def group = "MyGroup"
 
@@ -36,7 +36,6 @@ class StatusJob {
       try {
         if(m.url.getContent()) {
           m.setStatus(Machine.SHRINE_OK)
-          return
         }
       }
       catch(IOException e) {
