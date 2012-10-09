@@ -6,7 +6,7 @@
             <tr>
                 <td><label for="name">Short Name(SHRINE Node Identifier):</label></td>
                 <td>
-                    <g:textField id="name" name="name" value="${machine?.name}" />
+                    <g:textField size="60" id="name" name="name" value="${machine?.name}" />
                 </td>
             </tr>
             <tr>
@@ -14,7 +14,7 @@
                     <label for="realName">Long Name:</label>
                 </td>
                 <td>
-                    <g:textField id="realName" name="realName" value="${machine?.realName}" />
+                    <g:textField  size="60" id="realName" name="realName" value="${machine?.realName}" />
                 </td>
             </tr>
             <tr>
@@ -22,7 +22,7 @@
                     <label for="url">SHRINE endpoint URL:</label>
                 </td>
                 <td>
-                    <g:textField id="url" name="url" value="${machine?.url}" />
+                    <g:textField size="60" id="url" name="url" value="${machine?.url}" />
                 </td>
             </tr>
             <tr>
@@ -30,7 +30,7 @@
                     <label for="url">Certificate (Pase ASCII X.509):</label>
                 </td>
                 <td>
-                    <g:textArea id="cert" rows="200" cols="300" name="cert" value="${machine?.certificate}" />
+                    <g:textArea size="60" id="cert" rows="200" cols="300" name="cert" value="${machine?.certificate}" />
                 </td>
 
             </tr>
