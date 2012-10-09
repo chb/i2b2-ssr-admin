@@ -33,11 +33,11 @@ class StatusJob {
           if(m.url.getContent()) {
             m.setStatus(Machine.SHRINE_OK)
           }
-          m.save()
         }
         else {
           m.setStatus(Machine.MACHINE_BAD)
         }
+        m.save()
       }
 
       catch(IOException e) {
