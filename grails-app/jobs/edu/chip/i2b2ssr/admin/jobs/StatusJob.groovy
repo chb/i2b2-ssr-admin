@@ -36,6 +36,7 @@ class StatusJob {
       try {
         if(m.url.getContent()) {
           m.setStatus(Machine.SHRINE_OK)
+          continue
         }
       }
       catch(IOException e) {
