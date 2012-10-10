@@ -51,7 +51,7 @@
         <is_admin></is_admin>
         <g:each in="${user.permissions}">
           <project id="${it?.study?.studyName}">
-            <name>i2b2 Demo</name>
+            <name>"${it?.study?.studyName}</name>
             <wiki>http://www.i2b2.org</wiki>
             <role>USER</role>
             <g:if test="${it?.allowPdo}">
