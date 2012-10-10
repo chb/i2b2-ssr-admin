@@ -2,9 +2,9 @@
 <user_info>
     <username>${username}</username>
     <project>${project}</project>
-    <g:each var="homeSite" in="${homeSites}">
-        <homesite>${homeSite}</homesite>
-    </g:each>
+<g:each var="homeSite" in="${homeSites}">
+    <homesite>${homeSite}</homesite>
+</g:each>
     <allowPdo>${allowPdo}</allowPdo>
     <allowSiteIdentity>${allowSiteIdentity}</allowSiteIdentity>
 </user_info>
