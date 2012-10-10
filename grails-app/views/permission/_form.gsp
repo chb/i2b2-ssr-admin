@@ -41,10 +41,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="allowsPdo">Allow PDO</label>
+                    <label for="allowPdo">Allow PDO</label>
                 </td>
                 <td>
-                    <g:checkBox name="allowsPdo" value="true"/>
+                    <g:checkBox name="allowPdo" value="true"/>
                 </td>
             </tr>
             <tr>
