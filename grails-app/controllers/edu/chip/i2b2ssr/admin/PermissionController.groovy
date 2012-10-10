@@ -45,18 +45,16 @@ class PermissionController {
     Permission p = Permission.get(params.permissionId)
 
     if(p == null) {
-      p = new Permission(alllowPdo: params.allowPdo,
-              allowSiteIdentify: params.allowSiteIdentify)
+      p = new Permission()
 
       u.addToPermissions(p)
       s.addToPermission(p)
     }
-    else {
 
-      p.setProperties(allowPdo: params.allowPdo,
-              allowSiteIdentify: params.allowSiteIdentify)
+    p.setProperties(allowPdo: params.allowPdo ? true : false,
+            allowSiteIdentify: params.allowSiteIdentify ? true : false)
 
-    }
+
 
 
     if(u != null && s && !p.hasErrors()) {
