@@ -44,7 +44,7 @@
                     <label for="allowPdo">Allow PDO</label>
                 </td>
                 <td>
-                    <g:checkBox name="allowPdo" value="true"/>
+                    <g:checkBox name="allowPdo" value="${permission?.allowPdo}"/>
                 </td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@
                     <label for="allowSiteIdentify">Allow Site Identify (Patients contain site origins)</label>
                 </td>
                 <td>
-                    <g:checkBox name="allowSiteIdentify" value="true"/>
+                    <g:checkBox name="allowSiteIdentify" value="${permission?.allowSiteIdentity}"/>
                 </td>
             </tr>
         </table>
