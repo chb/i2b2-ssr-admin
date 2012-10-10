@@ -52,7 +52,7 @@
                     <label for="allowSiteIdentify">Allow Site Identify (Patients contain site origins)</label>
                 </td>
                 <td>
-                    <g:checkBox name="allowSiteIdentify" value="${permission?.allowSiteIdentity}"/>
+                    <g:checkBox name="allowSiteIdentify" value="${permission?.allowSiteIdentify}"/>
                 </td>
             </tr>
         </table>
