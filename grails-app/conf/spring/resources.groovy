@@ -14,12 +14,14 @@ beans = {
     case Environment.TEST:
       authService(AuthenticationService) {
         authenticator = {String userName, String password -> true} as IAuthenticator
+        grailsApplication = grailsApplication
       }
       break
     case Environment.PRODUCTION:
       authService(AuthenticationService) {
         authenticator = new LDAPAuthenticator("carra-nexus", 389, "ou=people,dc=carranet,dc=org", "uid")
-      }
+        grailsApplication = grailsApplication
+        }
       break
 
   }
