@@ -8,80 +8,80 @@ import static java.util.UUID.randomUUID
 import edu.chip.i2b2ssr.admin.data.Permission
 
 class AuthenticationService {
-    def grailsApplication
-    static transactional = true
+  def grailsApplication
+  static transactional = true
 
-    IAuthenticator authenticator
+  IAuthenticator authenticator
 
-    /**
-     *
-     * @param username
-     * @param password
-     * @return returns a User object if authentication is successful and null otherwise
-     */
-    def User authenticate(String username, String password) {
-        User user = User.findByUserName(username)
+  /**
+   *
+   * @param username
+   * @param password
+   * @return returns a User object if authentication is successful and null otherwise
+   */
+  def User authenticate(String username, String password) {
+    User user = User.findByUserName(username)
 
-        if (authenticator.authenticate(username, password)) {
-            //If the user is in the LDAP and there's no users in the system
-            //just create a new one and make them the admin, it's no ideal but eh...
-            if (user == null && User.count == 0) {
-                User newUser = new User(userName: username, isAdmin: true)
-                newUser.save()
-                user = newUser
-            }
-            return user
-        }
-        return null
+    if(authenticator.authenticate(username, password)) {
+      //If the user is in the LDAP and there's no users in the system
+      //just create a new one and make them the admin, it's no ideal but eh...
+      if(user == null && User.count == 0) {
+        User newUser = new User(userName: username, isAdmin: true)
+        newUser.save()
+        user = newUser
+      }
+      return user
     }
+    return null
+  }
 
-    def QuerySession authenticateWithSession(String username, String password) {
-        User u = authenticate(username, password)
-        QuerySession q;
-        if (u) {
-            q = new QuerySession(sessionId: randomUUID().toString())
-            u.addToQuerySessions(q)
-            q.save(failOnError: true)
-        }
-        return q;
+  def QuerySession authenticateWithSession(String username, String password) {
+    User u = authenticate(username, password)
+    QuerySession q;
+    if(u) {
+      u.lock()
+      q = new QuerySession(sessionId: randomUUID().toString())
+
+      u.addToQuerySessions(q)
+      q.save(failOnError: true, flush: true)
     }
+    return q;
+  }
 
-    /**
-     * This method will clean up all the old sessions that are older
-     * than timeout
-     *
-     * @param timeout - timeout in minutes
-     */
-    def void cleanupQuerySessions(Integer timeout) {
-        Calendar c1 = Calendar.getInstance()
-        c1.add(Calendar.MINUTE, (timeout * -1))
-        for (session in QuerySession.findAllByCreatedLessThan(c1.getTime())) {
-            session.delete(flush: true)
-        }
+  /**
+   * This method will clean up all the old sessions that are older
+   * than timeout
+   *
+   * @param timeout - timeout in minutes
+   */
+  def void cleanupQuerySessions(Integer timeout) {
+    Calendar c1 = Calendar.getInstance()
+    c1.add(Calendar.MINUTE, (timeout * -1))
+    for(session in QuerySession.findAllByCreatedLessThan(c1.getTime())) {
+      session.delete(flush: true)
     }
+  }
 
-    def void cleanupQuerySessions() {
-        cleanupQuerySessions(grailsApplication.config.i2b2ssr.querySessionTimeout)
+  def void cleanupQuerySessions() {
+    cleanupQuerySessions(grailsApplication.config.i2b2ssr.querySessionTimeout)
 
+  }
+
+  def boolean checkSessionKey(String username, String sessionKey) {
+
+    def time = Calendar.getInstance().add(Calendar.MINUTE, (grailsApplication.config.i2b2ssr.querySessionTimeout * -1))
+    def query = QuerySession.where {
+      user.userName == username && sessionId == sessionKey && created >= time
     }
+    return query.count() > 0
+  }
 
-    def boolean checkSessionKey(String username, String sessionKey) {
+  def Permission findPermission(String username, String projectName) {
+    def permission = Permission.where {
+      user.userName == username && study.studyName == projectName
+    }.get()
 
-        def time = Calendar.getInstance().add(Calendar.MINUTE, (grailsApplication.config.i2b2ssr.querySessionTimeout * -1))
-        def query = QuerySession.where {
-            user.userName == username && sessionId == sessionKey && created >= time
-        }
-        return query.count() > 0
-    }
-
-    def Permission findPermission(String username, String projectName) {
-        def permission = Permission.where {
-            user.userName == username && study.studyName == projectName
-        }.get()
-
-        return permission
-
-
-    }
+    return permission
+  }
 
 }
