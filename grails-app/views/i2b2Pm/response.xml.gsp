@@ -46,7 +46,7 @@
       <user>
         <full_name>i2b2 User</full_name>
         <user_name>${user?.userName}</user_name>
-        <password token_ms_timeout="1800000" is_token="true">${q?.sessionId}</password>
+        <password token_ms_timeout="1800000" is_token="true">${session.sessionId}</password>
         <domain>domain</domain>
         <is_admin></is_admin>
         <g:each in="${user.permissions}">
