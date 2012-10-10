@@ -9,7 +9,7 @@ import edu.chip.i2b2ssr.admin.data.Study
  */
 class ApiController {
 
-    AuthenticationService service
+  AuthenticationService authService;
 
     /**
      * This is the SHRINE sessionKey callback
@@ -20,8 +20,8 @@ class ApiController {
         String project = params.project
         String sessionKey = params.sessionKey
 
-        if (service.checkSessionKey(username, sessionKey)) {
-            Permission p = service.findPermission(username, project)
+        if (authService.checkSessionKey(username, sessionKey)) {
+            Permission p = authService.findPermission(username, project)
             if (p == null) {
                 render(text: "No Permission", status: 403)
             }
