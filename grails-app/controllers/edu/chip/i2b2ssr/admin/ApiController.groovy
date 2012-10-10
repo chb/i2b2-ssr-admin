@@ -18,7 +18,7 @@ class ApiController {
     def authentication_callback = {
         String username = params.username
         String project = params.project
-        String sessionKey = params.sessionkey
+        String sessionKey = params.sessionKey
 
         if (service.checkSessionKey(username, sessionKey)) {
             Permission p = service.findPermission(username, project)
