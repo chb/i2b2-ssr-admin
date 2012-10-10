@@ -55,8 +55,9 @@
             <wiki>http://www.i2b2.org</wiki>
             <role>USER</role>
             <g:if test="${it?.allowPdo}">
-              <role>DATA_AGG</role>
+             <role>DATA_LDS</role>
             </g:if>
+            <role>DATA_AGG</role>
             <role>DATA_OBFSC</role>
             <role>EDITOR</role>
           </project>
