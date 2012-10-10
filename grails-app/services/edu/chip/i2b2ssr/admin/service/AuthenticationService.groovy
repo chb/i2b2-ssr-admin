@@ -70,10 +70,15 @@ class AuthenticationService {
   def boolean checkSessionKey(String username, String sessionKey) {
 
     def time = Calendar.getInstance().add(Calendar.MINUTE, (grailsApplication.config.i2b2ssr.querySessionTimeout * -1))
-    def query = QuerySession.where {
-      user.userName == username && sessionId == sessionKey && created >= time
+    def result = QuerySession.where {
+      user.userName == username && sessionId == sessionKey
+    }.get()
+    if(!result){
+      return false;
     }
-    return query.count() > 0
+    else{
+      return result.created >= time
+    }
   }
 
   def Permission findPermission(String username, String projectName) {
