@@ -13,24 +13,6 @@
 <div id="editPane">
     <g:form action="update">
         <table>
-            %{--<tr>--}%
-                %{--<td>--}%
-                    %{--<label for="ldapAddress">LDAP Server Address:</label>--}%
-                %{--</td>--}%
-                %{--<td>--}%
-                    %{--<input type="text" id="ldapAddress" name="ldapAddre ss"--}%
-                           %{--value="${fieldValue(bean: preference, field: 'ldapAddress')}"/>--}%
-                %{--</td>--}%
-            %{--</tr>--}%
-            %{--<tr>--}%
-                %{--<td>--}%
-                    %{--<label for="ldapDN">LDAP base Search DN:</label>--}%
-                %{--</td>--}%
-                %{--<td>--}%
-                    %{--<input type="text" id="ldapDN" name="ldapBaseDN"--}%
-                           %{--value="${fieldValue(bean: preference, field: 'ldapBaseDN')}"/>--}%
-                %{--</td>--}%
-            %{--</tr>--}%
             <tr>
                 <td>
                     <label for="shrineAddress">SHRINE Cell Address:</label>
@@ -49,6 +31,19 @@
                            value="${fieldValue(bean: preference, field: 'i2b2OntCell')}"/>
                 </td>
             </tr>
+            <tr>
+                  <td>
+                      <label for="heartBeatStudy">SHRINE Heartbeat Study</label>
+                  </td>
+                  <td>
+                      <g:select name="heartBeatStudy" from="${studies}"
+                                value="${preference.heartBeatStudy.id}"
+                                optionKey="id"
+                                optionValue="studyName"
+                                multiple="false"
+                            />
+                  </td>
+              </tr>
         </table>
 
         <g:submitButton name="save" value="Save"/>

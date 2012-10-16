@@ -9,6 +9,8 @@ class Machine {
     String name
     String certificate
     String realName
+    Integer lastPatientCount = 0
+    Long lastResponseTimeInMillis
     URL url
     String status = MACHINE_BAD
     static hasMany = [studies: Study]
