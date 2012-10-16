@@ -1,6 +1,7 @@
 package edu.chip.i2b2ssr.admin.jobs
 
 import edu.chip.i2b2ssr.admin.data.Machine
+import edu.chip.i2b2ssr.admin.service.StatusService
 
 /**
  * @author David Ortiz
@@ -22,30 +23,11 @@ class StatusJob {
   }
   def group = "MyGroup"
 
+  def StatusService statusService
+
   def execute() {
     log.info("Running status check on cluster")
-    for(Machine m in Machine.all) {
-      //100 Millis is ok on our network
-      try {
-        log.info("Checking host " + m.realName)
-        if(InetAddress.getByName(m.url.getHost()).isReachable(100)) {
-          m.setStatus(Machine.MACHINE_AVAILABLE)
-          if(m.url.getContent()) {
-            m.setStatus(Machine.SHRINE_OK)
-          }
-        }
-        else {
-          m.setStatus(Machine.MACHINE_BAD)
-        }
-        m.save()
-      }
-
-      catch(IOException e) {
-        log.info("Caught IOException")
-      }
-
-    }
-
+    statusService.checkEndpointStatus()
   }
 
 

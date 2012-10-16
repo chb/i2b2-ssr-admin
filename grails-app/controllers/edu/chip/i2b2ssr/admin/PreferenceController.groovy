@@ -1,6 +1,7 @@
 package edu.chip.i2b2ssr.admin
 
 import edu.chip.i2b2ssr.admin.data.Preference
+import edu.chip.i2b2ssr.admin.data.Study
 
 class PreferenceController {
     String menuName = "Edit Preferences"
@@ -11,7 +12,7 @@ class PreferenceController {
 
 
     def editPrefs = {
-        [preference: getPreference()]
+        [preference: getPreference(), studies: Study.all]
 
     }
 

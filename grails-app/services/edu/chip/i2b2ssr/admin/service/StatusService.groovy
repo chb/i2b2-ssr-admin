@@ -1,8 +1,49 @@
 package edu.chip.i2b2ssr.admin.service
 
-class StatusService {
+import edu.chip.i2b2ssr.admin.data.Machine
+import edu.chip.i2b2ssr.admin.data.QuerySession
+import edu.chip.i2b2ssr.admin.data.User
 
-    def serviceMethod() {
+class StatusService {
+    static transactional = true
+
+
+    def checkEndpointStatus() {
+        log.info("Running status check on cluster")
+        for (Machine m in Machine.all) {
+            //100 Millis is ok on our network
+            try {
+                log.info("Checking host " + m.realName)
+                if (InetAddress.getByName(m.url.getHost()).isReachable(100)) {
+                    m.setStatus(Machine.MACHINE_AVAILABLE)
+                    if (m.url.getContent()) {
+                        m.setStatus(Machine.SHRINE_OK)
+                    }
+                }
+                else {
+                    m.setStatus(Machine.MACHINE_BAD)
+                }
+                m.save()
+            }
+            catch(Exception e){
+                log.fatal("Error checking machine: " + m?.realName)
+            }
+        }
+    }
+
+    def void runHeartBeat() {
+        log.info("Running status check on cluster")
+
+        User u = User.backgroundJobUser
+        if(u == null){
+            log.fatal("Can't find i2b2 background job user, it should've been" +
+                       "created by BootStrap.groovy")
+        }
+        def tempSession = new QuerySession()
+
+
+
+
 
     }
 }

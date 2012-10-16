@@ -13,6 +13,10 @@ import edu.chip.i2b2ssr.admin.service.AuthenticationService
  * @link http://www.gnu.org/licenses/lgpl.html
  */
 
+/**
+ * This is background job which cleans up old (older than i2b2ssr.querySessionTimeout)
+ * QuerySessions.
+ */
 class QuerySessionCleanerJob {
   AuthenticationService authenticationService
 
