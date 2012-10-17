@@ -77,7 +77,7 @@
         </cell_data>
         <cell_data id="SHRINE">
           <name>Data Repository</name>
-          <url>${preference?.shrineCell}</url>
+          <url>${preference?.shrineCell + "/rest/i2b2/"}</url>
           <project_path>/</project_path>
           <method>REST</method>
           <can_override>true</can_override>

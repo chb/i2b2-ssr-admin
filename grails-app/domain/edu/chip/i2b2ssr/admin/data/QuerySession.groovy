@@ -3,7 +3,7 @@ package edu.chip.i2b2ssr.admin.data
 
 class QuerySession {
   User user
-  String sessionId
+  String sessionId = UUID.randomUUID().toString()
   Date created = new Date()
 
   static belongsTo = [User]
