@@ -16,6 +16,7 @@ class User {
         userName unique: true
         realName nullable: true
         institutionName nullable: true
+        isSystemUser nullable: true
     }
 
     //This method makes the assumption that the backend user has
