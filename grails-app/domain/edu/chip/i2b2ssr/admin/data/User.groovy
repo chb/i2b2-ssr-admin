@@ -5,7 +5,7 @@ class User {
     String userName
     String realName
     String institutionName
-    boolean isSystemUser = false
+    boolean isSystemUser
     boolean isAdmin = false
 
     static hasMany = [permissions: Permission, homesites: Machine, querySessions: QuerySession]
