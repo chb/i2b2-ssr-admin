@@ -6,6 +6,7 @@ import edu.chip.i2b2ssr.admin.service.backend.IAuthenticator
 
 import static java.util.UUID.randomUUID
 import edu.chip.i2b2ssr.admin.data.Permission
+import edu.chip.i2b2ssr.admin.service.exception.PermissionException
 
 class AuthenticationService {
     def grailsApplication
@@ -23,15 +24,19 @@ class AuthenticationService {
         User user = User.findByUserName(username)
 
 
-        if (user && !user.isSystemUser && authenticator.authenticate(username, password)) {
+        if (authenticator.authenticate(username, password)) {
             //If the user is in the LDAP and there's no users in the system
             //just create a new one and make them the admin, it's no ideal but eh...
             if (user == null && User.count == 0) {
                 User newUser = new User(userName: username, isAdmin: true)
                 newUser.save(failOnError: true, flush: true)
                 user = newUser
+
             }
-            return user
+            else if(user.isSystemUser){
+              throw new PermissionException("Attempting to login as system user")
+            }
+          return user
         }
         return null
     }

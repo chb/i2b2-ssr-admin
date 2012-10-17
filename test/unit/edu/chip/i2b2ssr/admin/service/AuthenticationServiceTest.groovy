@@ -26,9 +26,9 @@ class AuthenticationServiceTest {
         c3.add(Calendar.MINUTE, (timeout * -1) - 20)
 
         User u1 = new User(userName: "testUser")
-        u1.addToQuerySessions(new QuerySession(created: c1.getTime()))
-        u1.addToQuerySessions(new QuerySession(created: c2.getTime()))
-        u1.addToQuerySessions(new QuerySession(created: c3.getTime()))
+        u1.addToQuerySessions(new QuerySession(created: c1.getTime(), sessionId: 1))
+        u1.addToQuerySessions(new QuerySession(created: c2.getTime(), sessionId: 2))
+        u1.addToQuerySessions(new QuerySession(created: c3.getTime(), sessionId: 3))
 
         u1.save(failOnError: true)
         def newService = new AuthenticationService()
@@ -42,7 +42,7 @@ class AuthenticationServiceTest {
         def neverAuthenticate = {String userName, String password -> false} as IAuthenticator
 
         newService.authenticator =  alwaysAuthenticate
-        assertEquals(true ,newService.authenticate("test", "test") != null)
+        assertEquals(true , newService.authenticate("test", "test") != null)
 
         //test that first user is created
         assertEquals(true, User.findByUserName("test") != null)
