@@ -37,11 +37,11 @@
                   </td>
                   <td>
                       <g:select name="heartBeatStudy" from="${studies}"
-                                value="${preference.heartBeatStudy.id}"
+                                value="${preference.heartBeatStudy?.id}"
+                                noSelection="${['null':'Disable Heartbeat']}"
                                 optionKey="id"
                                 optionValue="studyName"
-                                multiple="false"
-                            />
+                                multiple="false"/>
                   </td>
               </tr>
         </table>
