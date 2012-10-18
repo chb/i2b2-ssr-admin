@@ -19,11 +19,7 @@ class StatusController {
 
   def index = {
 
-    def badMachines = Machine.where {
-      status != Machine.SHRINE_OK
-    }
-
-    [machines: badMachines]
+    [machines: Machine.all]
 
   }
 
