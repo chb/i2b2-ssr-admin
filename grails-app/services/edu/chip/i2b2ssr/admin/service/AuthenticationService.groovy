@@ -27,7 +27,7 @@ class AuthenticationService {
         if (authenticator.authenticate(username, password)) {
             //If the user is in the LDAP and there's no users in the system
             //just create a new one and make them the admin, it's no ideal but eh...
-            if (user == null) {
+            if (user == null && noAdmin() == true) {
                 User newUser = new User(userName: username, isAdmin: true)
                 newUser.save(failOnError: true, flush: true)
                 user = newUser
@@ -39,6 +39,12 @@ class AuthenticationService {
           return user
         }
         return null
+    }
+
+    private Boolean noAdmin() {
+      User.where{
+        isAdmin == true
+      }.count() > 0
     }
 
     def QuerySession authenticateWithSession(String username, String password) {
