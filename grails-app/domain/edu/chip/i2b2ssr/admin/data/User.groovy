@@ -5,7 +5,7 @@ class User {
     String userName
     String realName
     String institutionName
-    boolean isSystemUser
+    boolean isSystemUser = false
     boolean isAdmin = false
 
     static hasMany = [permissions: Permission, homesites: Machine, querySessions: QuerySession]
@@ -16,7 +16,6 @@ class User {
         userName unique: true
         realName nullable: true
         institutionName nullable: true
-        isSystemUser nullable: true
     }
 
     //This method makes the assumption that the backend user has

@@ -70,21 +70,21 @@
       <cell_datas>
         <cell_data id="CRC">
           <name>Data Repository</name>
-          <url>${preference?.shrineCell}</url>
+          <url>${shrineCellUrl}</url>
           <project_path>/</project_path>
           <method>REST</method>
           <can_override>true</can_override>
         </cell_data>
         <cell_data id="SHRINE">
           <name>Data Repository</name>
-          <url>${preference?.shrineCell + "/rest/i2b2/"}</url>
+          <url>${shrineCellUrl}</url>
           <project_path>/</project_path>
           <method>REST</method>
           <can_override>true</can_override>
         </cell_data>
         <cell_data id="ONT">
           <name>Ontology Cell</name>
-          <url>${preference?.i2b2OntCell}</url>
+          <url>${ontCellUrl}</url>
           <project_path>/</project_path>
           <method>REST</method>
           <can_override>true</can_override>

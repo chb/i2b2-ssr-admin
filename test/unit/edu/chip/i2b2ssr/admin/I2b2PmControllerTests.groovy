@@ -73,7 +73,7 @@ class I2b2PmControllerTests {
   void testPMAuthentication() {
     def authServiceMock = mockFor(AuthenticationService)
     //Add a default preference object
-    Preference p = new Preference(i2b2OntCell: "http://testurl.com", shrineCell: "http://testcellbaby").save()
+    Preference p = new Preference(i2b2OntCell: "http://testurl.com", shrineCell: "http://testcell").save()
     QuerySession q =  new QuerySession(sessionId: "TEST")
     User u = new User(userName: "admin")
     u.addToQuerySessions(q)
@@ -95,7 +95,8 @@ class I2b2PmControllerTests {
     assert view == "/i2b2Pm/response.xml"
     assert model.session == q
     assert model.user == u
-    assert model.preference == p
+    assert model.shrineCellUrl == "http://testcell/rest/i2b2/"
+    assert model.ontCellUrl == "http://testurl.com"
   }
 
 

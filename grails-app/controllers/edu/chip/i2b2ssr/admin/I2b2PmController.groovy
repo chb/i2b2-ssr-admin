@@ -21,10 +21,18 @@ class I2b2PmController {
 
     QuerySession q = authService.authenticateWithSession(username, password)
 
-    if(!q){
+    if(!q) {
       throw new PermissionException("couldn't auth for PM")
     }
-    render(contentType: "text/xml", view: "response.xml", model: [session : q, user: q.user, preference : Preference.all.first()])
+
+    Preference p = Preference.all.first()
+
+    String shrineCellUrl = p.shrineCell + "/rest/i2b2/"
+    String ontCellUrl = p.i2b2OntCell
+
+
+
+    render(contentType: "text/xml", view: "response.xml", model: [session: q, user: q.user, shrineCellUrl: shrineCellUrl, ontCellUrl: ontCellUrl])
   }
 
 
