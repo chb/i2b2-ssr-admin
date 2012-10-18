@@ -27,13 +27,13 @@ class AuthenticationService {
         if (authenticator.authenticate(username, password)) {
             //If the user is in the LDAP and there's no users in the system
             //just create a new one and make them the admin, it's no ideal but eh...
-            if (user == null && User.count == 0) {
+            if (user == null) {
                 User newUser = new User(userName: username, isAdmin: true)
                 newUser.save(failOnError: true, flush: true)
                 user = newUser
 
             }
-            else if(user.isSystemUser){
+            else if(user && user.isSystemUser){
               throw new PermissionException("Attempting to login as system user")
             }
           return user
