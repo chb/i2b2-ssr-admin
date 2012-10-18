@@ -43,7 +43,7 @@ class UserController {
   }
 
   def list = {
-    [users: User.all]
+    [users: User.where{userName != User.SYSTEM_USER}]
   }
 
   def show = {
