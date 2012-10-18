@@ -44,7 +44,7 @@ class AuthenticationService {
     private Boolean noAdmin() {
       User.where{
         isAdmin == true
-      }.count() > 0
+      }.count() == 0
     }
 
     def QuerySession authenticateWithSession(String username, String password) {
