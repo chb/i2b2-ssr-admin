@@ -28,7 +28,7 @@ class I2b2PmController {
     Preference p = Preference.all.first()
 
     String shrineCellUrl = p.shrineCell + "/rest/i2b2/"
-    String ontCellUrl = p.i2b2OntCell
+    String ontCellUrl = p.i2b2OntCell + "/"
 
 
 
