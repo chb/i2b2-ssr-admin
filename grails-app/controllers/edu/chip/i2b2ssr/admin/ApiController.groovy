@@ -23,7 +23,7 @@ class ApiController {
 
         if (authService.checkSessionKey(username, sessionKey)) {
 
-            if(authService.isSystemUser()){
+            if(authService.isSystemUser(username)){
                 render(view: "authentication_callback_xml", model: [username: username,
                                        project: project,
                                        allowPdo: true,
