@@ -1,5 +1,5 @@
 
-class SecurityFilterFilters {
+class SecurityFilters {
 
   def filters = {
 
@@ -8,9 +8,12 @@ class SecurityFilterFilters {
         if(actionName == "login" || actionName == "auth" || (session?.user?.isAdmin == true)) {
           return true
         }
-        if(!session.user) {
+        else if(!session.user) {
           redirect(controller: "user", action: "login")
           return false
+        }
+        else{
+            return true
         }
       }
     }
