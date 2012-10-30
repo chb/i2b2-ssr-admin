@@ -16,13 +16,13 @@ class StatusService {
       try {
         log.info("Checking host " + m.realName)
         if(InetAddress.getByName(m.url.getHost()).isReachable(100)) {
-          m.setStatus(Machine.MACHINE_AVAILABLE)
-          if(m.url.getContent()) {
-            m.setStatus(Machine.SHRINE_OK)
-          }
+          m.endpointStatus = Machine.REACHABLE
+//          if(m.url.getContent()) {
+//            //m.setStatus(Machine.SHRINE_OK)
+//          }
         }
         else {
-          m.setStatus(Machine.MACHINE_BAD)
+          m.endpointStatus = Machine.UNREACHABLE
         }
         m.save()
       }

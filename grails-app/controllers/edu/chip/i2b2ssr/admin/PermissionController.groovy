@@ -68,5 +68,21 @@ class PermissionController {
     }
   }
 
+  def delete = {
+    Permission p = Permission.get(params.permissionId)
+    if(p) {
+      try {
+        p.delete(flush: true)
+        flash.message = "Successfully deleted"
+        redirect(controller: "user", action: "list")
+
+      }
+      catch(org.springframework.dao.DataIntegrityViolationException e) {
+        flash.message = "Permisions ${params.id} could not be deleted ${e.message}"
+      }
+
+    }
+  }
+
 
 }

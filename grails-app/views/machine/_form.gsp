@@ -25,15 +25,15 @@
                     <g:textField size="60" id="url" name="url" value="${machine?.url}" />
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <label for="url">Certificate (Pase ASCII X.509):</label>
-                </td>
-                <td>
-                    <g:textArea size="60" id="cert" rows="200" cols="300" name="cert" value="${machine?.certificate}" />
-                </td>
+            %{--<tr>--}%
+                %{--<td>--}%
+                    %{--<label for="url">Certificate (Pase ASCII X.509):</label>--}%
+                %{--</td>--}%
+                %{--<td>--}%
+                    %{--<g:textArea size="60" id="cert" rows="200" cols="300" name="cert" value="${machine?.certificate}" />--}%
+                %{--</td>--}%
 
-            </tr>
+            %{--</tr>--}%
         </table>
 
         <g:submitButton name="save" value="save"/>
