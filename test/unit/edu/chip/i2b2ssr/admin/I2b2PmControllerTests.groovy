@@ -96,7 +96,7 @@ class I2b2PmControllerTests {
     assert model.session == q
     assert model.user == u
     assert model.shrineCellUrl == "http://testcell/rest/i2b2/"
-    assert model.ontCellUrl == "http://testurl.com"
+    assert model.ontCellUrl == "http://testurl.com/"
   }
 
 

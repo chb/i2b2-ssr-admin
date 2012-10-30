@@ -13,7 +13,7 @@ class HeartbeatJob {
     def statusService
 
     def execute() {
-        log.info("Running heartbeat")
+        log.debug("Running heartbeat")
         statusService.runHeartBeat()
     }
 
