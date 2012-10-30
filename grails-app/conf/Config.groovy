@@ -64,6 +64,7 @@ grails.hibernate.cache.queries = false
  */
 
 
+i2b2ssr.routingTableFile = System.getProperty("user.home") + "/.spin/conf/routingtable.xml"
 
 //How long query sessions last in minutes
 i2b2ssr.querySessionTimeout = 30
