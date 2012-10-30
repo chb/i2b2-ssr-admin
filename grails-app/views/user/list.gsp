@@ -33,7 +33,7 @@
             <tr id="user${it.id}" class="${(i % 2 == 0) ? 'even' : 'odd'}">
                 <td><button class="deleteuser" data-username="${it.userName}" data-userid="${it.id}">Delete</button>
                 </td>
-                <td><g:link id="${it.id}" action="edit">${it.userName}</g:link></td>
+                <td><g:link id="${it.id}" action="edit">${it.userName}</g:link><g:if test="${user?.isAdmin}">*</g:if></td>
                 <td>${it.realName}</td>
                 <td><ul>
                     <g:each var="study" in="${it.homesites}">

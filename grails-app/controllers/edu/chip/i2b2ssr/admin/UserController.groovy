@@ -17,7 +17,7 @@ class UserController {
     def password = params.password
 
     User u = authService.authenticate(user,password)
-    if(u){
+    if(u && u.isAdmin){
       session.user = u
       redirect(uri: "/")
     }
@@ -67,6 +67,8 @@ class UserController {
       u = new User(params)
       message = "Created user ${params.userName}"
     }
+
+    u.isAdmin = params.isAdmin ? true : false
 
     //List<Study> = Study.
     if(!u.hasErrors() && u.save()) {

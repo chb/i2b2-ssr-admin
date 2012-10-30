@@ -1,10 +1,10 @@
-%{--<g:if test="${machine.endpointStatus== "Bad"}">--}%
-%{--<div class="machine_status bad_machine">--}%
+<g:if test="${machine.endpointStatus== "Unreachable"}">
+<div class="machine_status bad_machine">
 
-%{--</g:if>--}%
-%{--<g:else>--}%
+</g:if>
+<g:else>
 <div class="machine_status">
-%{--</g:else>--}%
+</g:else>
 Machine: ${machine.realName}
 <ul>
   <li>Address: ${machine.url}</li>
