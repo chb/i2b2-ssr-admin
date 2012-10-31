@@ -37,16 +37,19 @@ if (typeof jQuery !== 'undefined') {
 }
 
 function deleteRow(id, row, message) {
-    $.ajax({
-            type:"DELETE",
-            url:"delete/" + id
-        }
+    var r=confirm("Are you sure?")
+    if (r==true)
+      {
+          $.ajax({
+                  type:"DELETE",
+                  url:"delete/" + id
+              }
 
-    ).done(function () {
-            row.slideUp();
-            $(".message").text(Message)
-        });
-
+          ).done(function () {
+                  row.slideUp();
+                  $(".message").text(Message)
+              });
+      }
 }
 
 //show the modal overlay and popup window
