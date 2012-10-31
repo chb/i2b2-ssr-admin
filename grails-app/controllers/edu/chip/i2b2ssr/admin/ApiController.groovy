@@ -41,7 +41,7 @@ class ApiController {
                         project: project,
                         allowPdo: p.allowPdo,
                         allowSiteIdentity: p.allowSiteIdentify,
-                        homeSites: p.user.homesites*.name
+                        homeSites: p.user.homesites*.realName
                 ])
             }
         }
