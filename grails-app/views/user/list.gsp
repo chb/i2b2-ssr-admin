@@ -3,11 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>I2B2SSR Administration</title>
-    %{--<g:javascript type="javascript">--}%
-        %{--$('.editButton').click(function (eventObject) {--}%
-                %{--showPopUpMessage("Testing Functionality")--}%
-           %{--});--}%
-     %{--</g:javascript>--}%
 </head>
 
 <body>

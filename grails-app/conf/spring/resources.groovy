@@ -19,7 +19,11 @@ beans = {
       break
     case Environment.PRODUCTION:
       authService(AuthenticationService) {
-        authenticator = new LDAPAuthenticator("carra-nexus", 389, "ou=people,dc=carranet,dc=org", "uid")
+        //authenticator = new LDAPAuthenticator("carra-nexus", 389, "ou=people,dc=carranet,dc=org", "uid")
+
+        authenticator = new LDAPAuthenticator("ldap.chboston.org", 389,
+                "CN=CarraNetSvc,OU=Special Accounts,DC=CHBDir,DC=Org", "D87kdRs1",
+                "ou=users,dc=chbdir,dc=org", "cn")
         grailsApplication = grailsApplication
         }
       break
