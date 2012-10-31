@@ -13,7 +13,6 @@
   <table id="userTable">
     <!-- Table header -->
     <thead>
-
     <th>Real Name</th>
     <th>Address</th>
     <th>Status</th>
@@ -22,7 +21,6 @@
     </thead>
     <!-- Table body -->
     <tbody>
-
     <g:each var="it" in="${machines}" status="i">
       <tr id="machine" class="${(i % 2 == 0) ? 'even' : 'odd'}">
         <td>${it.realName}</td>
@@ -35,5 +33,4 @@
     </tbody>
   </table>
 </div>
-
 </body>
