@@ -32,7 +32,6 @@
         <td>${it.latestStatus()?.responseTimeInMillis}</td>
       </tr>
     </g:each>
-
     </tbody>
   </table>
 </div>
