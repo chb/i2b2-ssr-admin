@@ -43,7 +43,9 @@ class UserController {
   }
 
   def list = {
-    [users: User.where{userName != User.SYSTEM_USER}]
+    def users = User.where{userName != User.SYSTEM_USER}
+    [count: users.count(),
+     users: users.list(params)]
   }
 
   def show = {

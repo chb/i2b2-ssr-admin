@@ -18,9 +18,15 @@ class StatusController {
 
 
   def index = {
+    params.max=Math.min(params.max ? params.int('max') : 5,100)
+    params.sort = "endpointStatus"
+    params.order = "desc"
 
-    [machines: Machine.all]
+
+    [machines: Machine.list(params),
+     count: Machine.count()]
 
   }
+
 
 }
