@@ -15,7 +15,7 @@ class MachineController {
 
 
   def list = {
-    params.max = Math.min(params.max ? params.int('max') : 5, 100)
+    params.max = Math.min(params.max ? params.int('max') : 10, 100)
     [count: Machine.count,
      machines: Machine.list(params)]
   }

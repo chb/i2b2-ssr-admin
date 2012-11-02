@@ -50,7 +50,7 @@
         </tbody>
     </table>
   <g:paginate controller="machine" action="list"
-              total="${count}" max="5"/>
+              total="${count}" max="10"/>
 </div>
 
 </body>
