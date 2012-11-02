@@ -49,6 +49,8 @@
         </g:each>
         </tbody>
     </table>
+  <g:paginate controller="machine" action="list"
+              total="${count}" max="5"/>
 </div>
 
 </body>

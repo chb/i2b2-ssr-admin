@@ -4,6 +4,7 @@ import edu.chip.i2b2ssr.admin.data.Machine
 import edu.chip.i2b2ssr.admin.data.QuerySession
 import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.data.Preference
+import org.apache.jasper.tagplugins.jstl.core.Url
 
 class StatusService {
   static transactional = true
@@ -15,11 +16,10 @@ class StatusService {
       //100 Millis is ok on our network
       try {
         log.info("Checking host " + m.realName)
-        if(InetAddress.getByName(m.url.getHost()).isReachable(100)) {
+        if(InetAddress.getByName(m.url.getHost()).isReachable(100) &&
+                m.url.getContent()) {
           m.endpointStatus = Machine.REACHABLE
-//          if(m.url.getContent()) {
-//            //m.setStatus(Machine.SHRINE_OK)
-//          }
+
         }
         else {
           m.endpointStatus = Machine.UNREACHABLE
@@ -43,17 +43,16 @@ class StatusService {
 
     assert u.isSystemUser == true
 
-
-
     //create a new temporary session, to be deleted immediately after completing the query
     def tempSession = new QuerySession(user: u)
     tempSession.save(failOnError: true, flush: true)
-
-
-  }
-
-  private String createQuery(){
-    Preference.get(1).shrineCell
+    Preference p = Preference.first()
+    if(p.heartBeatStudy?.studyName) {
+      def url = new URL(Preference.first().shrineCell +
+              "/statusCheck?username=\"${u.userName}\"&password=\"${tempSession.sessionId}\"&project=\"${p.heartBeatStudy.studyName}\"")
+      String response = url.getContent().toString()
+    }
+    tempSession.delete(flush: true)
   }
 
 
