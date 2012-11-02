@@ -48,8 +48,7 @@
         </tbody>
     </table>
 
-  <g:paginate controller="user" action="list"
-              total="${count}" max="10"/>
+  <g:paginate controller="user" action="list" total="${count}" max="10"/>
 </div>
 
 </body>

@@ -44,7 +44,7 @@ class UserController {
 
   def list = {
     def users = User.where{userName != User.SYSTEM_USER}
-    params.max = Math.min(params.max ? params.int('max') : 5, 100)
+    params.max = Math.min(params.max ? params.int('max') : 10, 100)
     params.sort = "realName"
     params.order = "asc"
     [count: users.count(),
