@@ -36,7 +36,7 @@
 
 </table>
 <g:paginate controller="status" action="index"
-            total="${count}" max="20"/>
+            total="${count}" max="10"/>
 
 </div>
 </body>
