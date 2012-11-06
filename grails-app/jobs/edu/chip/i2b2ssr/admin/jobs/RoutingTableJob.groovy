@@ -3,6 +3,7 @@ package edu.chip.i2b2ssr.admin.jobs
 import grails.gsp.PageRenderer
 import edu.chip.i2b2ssr.admin.data.Study
 import org.apache.log4j.Logger
+import edu.chip.i2b2ssr.admin.data.Machine
 
 /**
  * This is a job that updates the roting table
@@ -32,7 +33,7 @@ class RoutingTableJob {
         File routingTableFile = new File(grailsApplication.config.i2b2ssr.routingTableFile.toString())
 
         routingTableFile.withWriter { writer ->
-            groovyPageRenderer.renderTo(view: "/api/routing_table_xml", model: [studies: Study.all],writer )
+            groovyPageRenderer.renderTo(view: "/api/routing_table_xml", model: [studies: Study.all, machines: Machine.all],writer )
         }
         log.debug("Updated Routing table")
 
