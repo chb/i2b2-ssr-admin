@@ -16,6 +16,8 @@
         <grails.version>2.1.1</grails.version>
     </properties>
 
+
+
     <dependencies>
         <dependency>
             <groupId>org.grails</groupId>
@@ -200,6 +202,11 @@
             <id>grails-plugins</id>
             <name>grails-plugins</name>
             <url>http://repo.grails.org/grails/plugins</url>
+        </repository>
+        <repository>
+            <id>open.med.harvard.edu</id>
+            <name>Open Med</name>
+            <url>http://repo.open.med.harvard.edu/nexus/content/groups/public</url>
         </repository>
     </repositories>
 
