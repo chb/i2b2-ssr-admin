@@ -45,6 +45,7 @@ class LDAPAuthenticator implements IAuthenticator {
 
   def boolean authenticate(String username, String password) {
     def con = pool.getConnection()
+
     try {
 
       SearchResult sr = con.search(baseDn, SearchScope.SUB, (userIdentifier + "=" + username));
@@ -52,12 +53,10 @@ class LDAPAuthenticator implements IAuthenticator {
         throw new PermissionException("No such user");
       }
 
-
       if(sr.getEntryCount() > 0) {
         String dn = sr.getSearchEntries().get(0).getDN();
-        con = pool.getConnection()
-        con.bind(dn, password);
-
+        con.bind()
+        pool.releaseDefunctConnection(con)
         return true
 
       }
@@ -69,8 +68,8 @@ class LDAPAuthenticator implements IAuthenticator {
       log.error("Recieved LDAP exception: " + e.message);
       return false
     }
-    finally{
-      if(con){
+    finally {
+      if(con) {
         pool.releaseConnection(con)
       }
 
