@@ -14,13 +14,10 @@
   <g:each in="${machines}" var="machine">
     <peerGroup>
       <groupName>machine-${machine.name}</groupName>
-
       <child>
         <endpointType>SOAP</endpointType>
         <address>${machine.url}</address>
       </child>
-
     </peerGroup>
   </g:each>
-
 </ns3:RoutingTableConfig>
