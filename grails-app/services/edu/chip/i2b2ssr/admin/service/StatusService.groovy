@@ -5,13 +5,13 @@ import edu.chip.i2b2ssr.admin.data.QuerySession
 import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.data.Preference
 import org.apache.jasper.tagplugins.jstl.core.Url
-import net.shrine.service.JerseyShrineClient
 import net.shrine.protocol.AuthenticationInfo
 import net.shrine.protocol.Credential
 import edu.harvard.i2b2.crc.datavo.setfinder.query.ResultOutputOptionType
 import net.shrine.protocol.ResultOutputType
 import net.shrine.protocol.RunQueryResponse
 import edu.chip.i2b2ssr.admin.data.Status
+import net.shrine.util.JerseyShrineClient
 
 class StatusService {
   static transactional = true
