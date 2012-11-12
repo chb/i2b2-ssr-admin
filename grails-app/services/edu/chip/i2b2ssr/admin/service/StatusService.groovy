@@ -12,11 +12,12 @@ import net.shrine.protocol.ResultOutputType
 import net.shrine.protocol.RunQueryResponse
 import edu.chip.i2b2ssr.admin.data.Status
 import net.shrine.util.JerseyShrineClient
+import org.springframework.transaction.annotation.Transactional
 
 class StatusService {
-  static transactional = true
+    static transactional = false
 
-  private String heartbeatQueryPanel = """
+    private String heartbeatQueryPanel = """
         <ns4:query_definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xmlns:ns8="http://www.i2b2.org/xsd/hive/msg/result/1.1/"
                         xmlns:ns6="http://www.i2b2.org/xsd/cell/crc/psm/analysisdefinition/1.1/"
@@ -49,59 +50,71 @@ class StatusService {
               </ns4:query_definition>
   """
 
-  def checkEndpointStatus() {
-    log.info("Running status check on cluster")
-    for(Machine m in Machine.all) {
-      //100 Millis is ok on our network
-      try {
-        log.info("Checking host " + m.realName)
-        if(InetAddress.getByName(m.url.getHost()).isReachable(100) &&
-                m.url.getContent()) {
-          m.endpointStatus = Machine.REACHABLE
+    @Transactional
+    def checkEndpointStatus() {
+        log.info("Running status check on cluster")
+        for (Machine m in Machine.all) {
+            //100 Millis is ok on our network
+            try {
+                log.info("Checking host " + m.realName)
+                if (InetAddress.getByName(m.url.getHost()).isReachable(100) &&
+                        m.url.getContent()) {
+                    m.endpointStatus = Machine.REACHABLE
+
+                }
+                else {
+                    m.endpointStatus = Machine.UNREACHABLE
+                }
+                m.save()
+            }
+            catch (Exception e) {
+                log.fatal("Error checking machine: " + m?.realName)
+            }
+        }
+    }
+
+    def void runHeartBeat() {
+
+
+        assert u.isSystemUser == true
+
+        //create a new temporary session, to be deleted immediately after completing the query
+        User.withTransaction {
+            log.info("Running status check on cluster")
+
+            User u = User.backgroundJobUser
+            if (u == null) {
+                log.fatal("Can't find i2b2 background job user, it should've been" +
+                        "created by BootStrap.groovy")
+                return
+            }
+            QuerySession tempSession = new QuerySession(sessionId: UUID.randomUUID().toString())
+            u.addToQuerySessions(tempSession)
+            u.save(failOnError: true, flush: true)
 
         }
-        else {
-          m.endpointStatus = Machine.UNREACHABLE
+
+
+        Preference p = Preference.withTransaction(Preference.first())
+        AuthenticationInfo auth = new AuthenticationInfo("test", u.userName, new Credential(tempSession.sessionId, true))
+
+
+        def machineIds = Machine.withTransaction { machineIds = Machine.all*.id}
+
+
+        for (Machine m : Machine.all) {
+            def url = p.shrineCell + "/rest/"
+            JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
+            long start = System.currentTimeMillis();
+            RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
+            int numberOfPatients = 10
+            long end = System.currentTimeMillis()
+            m.addToStatuses(new Status(numberOfPatients: 0, responseTimeInMillis: (end - start)))
+            m.save(failOnError: true)
         }
-        m.save()
-      }
-      catch(Exception e) {
-        log.fatal("Error checking machine: " + m?.realName)
-      }
+
+        tempSession.delete(flush: true)
     }
-  }
-
-  def void runHeartBeat() {
-    log.info("Running status check on cluster")
-
-    User u = User.backgroundJobUser
-    if(u == null) {
-      log.fatal("Can't find i2b2 background job user, it should've been" +
-              "created by BootStrap.groovy")
-    }
-
-    assert u.isSystemUser == true
-
-    //create a new temporary session, to be deleted immediately after completing the query
-    def tempSession = new QuerySession(user: u)
-    tempSession.save(failOnError: true, flush: true)
-    Preference p = Preference.first()
-
-    AuthenticationInfo auth = new AuthenticationInfo(u.userName, new Credential(tempSession.sessionId, true))
-
-    for(Machine m : Machine.all) {
-      JerseyShrineClient client = new JerseyShrineClient(p.shrineCell, "machine-${m.name}", auth, true)
-      long start = System.currentTimeMillis();
-      RunQueryResponse r = client.runQuery("", ResultOutputType.PATIENT_COUNT_XML, heartbeatQueryPanel)
-      int numberOfPatients = r.RR
-      long end = System.currentTimeMillis()
-
-      m.addToStatuses(new Status(numberOfPatients: 0, responseTimeInMillis: (end - start)))
-      m.save(failOnError: true)
-    }
-
-    tempSession.delete(flush: true)
-  }
 
 
 }
