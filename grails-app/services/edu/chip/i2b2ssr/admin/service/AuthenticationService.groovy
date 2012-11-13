@@ -94,7 +94,8 @@ class AuthenticationService {
 
     def Boolean isSystemUser(String userName) {
         def user = User.findByUserName(userName)
-        return (user && user.isSystemUser)
+        def result = user != null && user.isSystemUser
+        return result
     }
 
     def Permission findPermission(String username, String projectName) {
