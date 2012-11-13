@@ -75,11 +75,10 @@ class StatusService {
 
     def void runHeartBeat() {
 
-
-        assert u.isSystemUser == true
+        String sessionId = null
 
         //create a new temporary session, to be deleted immediately after completing the query
-        User.withTransaction {
+        User.withTransaction { status ->
             log.info("Running status check on cluster")
 
             User u = User.backgroundJobUser
@@ -91,29 +90,40 @@ class StatusService {
             QuerySession tempSession = new QuerySession(sessionId: UUID.randomUUID().toString())
             u.addToQuerySessions(tempSession)
             u.save(failOnError: true, flush: true)
+            sessionId = tempSession.sessionId
+            status.setRollbackOnly()
 
         }
 
 
-        Preference p = Preference.withTransaction(Preference.first())
-        AuthenticationInfo auth = new AuthenticationInfo("test", u.userName, new Credential(tempSession.sessionId, true))
+        Preference.withTransaction { status ->
+            Preference p = Preference.first()
+
+            if(!sessionId){
+                log.fatal("There was a previous error creating a temporary sesion, can't continue")
+            }
+
+            QuerySession tempSession = QuerySession.findBySessionId(sessionId)
+            User u = tempSession?.user
+            AuthenticationInfo auth = new AuthenticationInfo("test", u?.userName,
+                                       new Credential(tempSession?.sessionId, true))
+
+            for (Machine m : Machine.all) {
 
 
-        def machineIds = Machine.withTransaction { machineIds = Machine.all*.id}
+                def url = p.shrineCell + "/rest/"
+                JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
+                long start = System.currentTimeMillis();
+                RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
+                int numberOfPatients = 10
+                long end = System.currentTimeMillis()
+                m.addToStatuses(new Status(numberOfPatients: 0, responseTimeInMillis: (end - start)))
+                m.save(failOnError: true)
+            }
 
-
-        for (Machine m : Machine.all) {
-            def url = p.shrineCell + "/rest/"
-            JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
-            long start = System.currentTimeMillis();
-            RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
-            int numberOfPatients = 10
-            long end = System.currentTimeMillis()
-            m.addToStatuses(new Status(numberOfPatients: 0, responseTimeInMillis: (end - start)))
-            m.save(failOnError: true)
+            tempSession.delete(flush: true)
+            status.setRollbackOnly()
         }
-
-        tempSession.delete(flush: true)
     }
 
 
