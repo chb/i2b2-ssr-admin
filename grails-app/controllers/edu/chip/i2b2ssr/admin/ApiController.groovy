@@ -23,6 +23,7 @@ class ApiController {
 
         if (authService.checkSessionKey(username, sessionKey)) {
 
+            def result = authService.isSystemUser(username)
             if(authService.isSystemUser(username)){
                 render(view: "authentication_callback_xml", model: [username: username,
                                        project: project,
@@ -30,7 +31,9 @@ class ApiController {
                                        allowSiteIdentity: false,
 
                                ])
+                return
             }
+
 
             Permission p = authService.findPermission(username, project)
             if (p == null) {
