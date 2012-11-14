@@ -4,10 +4,8 @@ import edu.chip.i2b2ssr.admin.data.Machine
 import edu.chip.i2b2ssr.admin.data.QuerySession
 import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.data.Preference
-import org.apache.jasper.tagplugins.jstl.core.Url
 import net.shrine.protocol.AuthenticationInfo
 import net.shrine.protocol.Credential
-import edu.harvard.i2b2.crc.datavo.setfinder.query.ResultOutputOptionType
 import net.shrine.protocol.ResultOutputType
 import net.shrine.protocol.RunQueryResponse
 import edu.chip.i2b2ssr.admin.data.Status
@@ -91,7 +89,6 @@ class StatusService {
             u.addToQuerySessions(tempSession)
             u.save(failOnError: true, flush: true)
             sessionId = tempSession.sessionId
-            status.setRollbackOnly()
 
         }
 
@@ -99,31 +96,33 @@ class StatusService {
         Preference.withTransaction { status ->
             Preference p = Preference.first()
 
-            if(!sessionId){
+            if (!sessionId) {
                 log.fatal("There was a previous error creating a temporary sesion, can't continue")
             }
 
             QuerySession tempSession = QuerySession.findBySessionId(sessionId)
             User u = tempSession?.user
             AuthenticationInfo auth = new AuthenticationInfo("test", u?.userName,
-                                       new Credential(tempSession?.sessionId, true))
+                    new Credential(tempSession?.sessionId, true))
 
             for (Machine m : Machine.all) {
-
-
                 def url = p.shrineCell + "/rest/"
                 JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
                 long start = System.currentTimeMillis();
                 RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
-                int numberOfPatients = 10
+                long numberOfPatients = setSizeFromResponseXML(r.toXml().toString())
+
+
                 long end = System.currentTimeMillis()
-                m.addToStatuses(new Status(numberOfPatients: 0, responseTimeInMillis: (end - start)))
+                m.addToStatuses(new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start)))
                 m.save(failOnError: true)
             }
-
             tempSession.delete(flush: true)
-            status.setRollbackOnly()
         }
+    }
+
+    protected def Long setSizeFromResponseXML(String responseXML) {
+        return 1L
     }
 
 
