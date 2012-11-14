@@ -14,6 +14,12 @@ import org.springframework.transaction.annotation.Transactional
 
 class StatusService {
     static transactional = false
+    /*
+      TODO - FIXME - i2b2 makes a generic find-all-patients query difficult because there
+      doesn't seem to be a good way in i2b2 to say, hey bro, give me all your patients, you
+      need to specify a term which absolutely kills portability.  We'll have to make this a config
+      option at some point :-/
+     */
 
     private String heartbeatQueryPanel = """
         <ns4:query_definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -24,26 +30,26 @@ class StatusService {
                         xmlns:ns3="http://www.i2b2.org/xsd/hive/plugin/"
                         xmlns:ns4="http://www.i2b2.org/xsd/cell/crc/psm/1.1/"
                         xmlns:ns2="http://www.i2b2.org/xsd/hive/pdo/1.1/">
-                  <query_name>CARRAnet </query_name>
+                  <query_name>i2b2-ssr-status</query_name>
                   <query_description>Status Query</query_description>
                   <query_timing>ANY</query_timing>
                   <specificity_scale>0</specificity_scale>
-                  <panel name="Panel_31">
+                  <panel name="Panel_1">
                       <panel_number>1</panel_number>
                       <panel_accuracy_scale>0</panel_accuracy_scale>
                       <invert>0</invert>
                       <total_item_occurrences>1</total_item_occurrences>
-                      <item>
-                          <hlevel>1</hlevel>
-                          <item_name>root</item_name>
-                          <item_key>\\</item_key>
-                          <dim_tablename>concept_dimension</dim_tablename>
-                          <dim_columnname>concept_path</dim_columnname>
-                          <dim_dimcode>\\</dim_dimcode>
-                          <dim_columndatatype>T</dim_columndatatype>
-                          <facttablecolumn>concept_cd</facttablecolumn>
-                          <item_is_synonym>false</item_is_synonym>
-                      </item>
+                    <item>
+                        <hlevel>0</hlevel>
+                        <item_name>CARRA Registry v2.0</item_name>
+                        <item_key>\\CARRA Registry v2.0\\</item_key>
+                        <dim_tablename>concept_dimension</dim_tablename>
+                        <dim_columnname>concept_path</dim_columnname>
+                        <dim_dimcode>\\CARRA_Reg_v2.0\\</dim_dimcode>
+                        <dim_columndatatype>T</dim_columndatatype>
+                        <facttablecolumn>concept_cd</facttablecolumn>
+                        <item_is_synonym>false</item_is_synonym>
+                    </item>
                   </panel>
               </ns4:query_definition>
   """
@@ -72,7 +78,6 @@ class StatusService {
     }
 
     def void runHeartBeat() {
-
         String sessionId = null
 
         //create a new temporary session, to be deleted immediately after completing the query
@@ -111,18 +116,21 @@ class StatusService {
                 long start = System.currentTimeMillis();
                 RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
                 long numberOfPatients = setSizeFromResponseXML(r.toXml().toString())
-
-
                 long end = System.currentTimeMillis()
-                m.addToStatuses(new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start)))
-                m.save(failOnError: true)
+                Status s = new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start))
+                s.machine = m
+                s.save(failOnError: true)
             }
+            u.removeFromQuerySessions(tempSession)
             tempSession.delete(flush: true)
         }
     }
 
+
     protected def Long setSizeFromResponseXML(String responseXML) {
-        return 1L
+        def node = new XmlSlurper().parseText(responseXML)
+        def countString = node.queryResults.queryResult.find { it.resultType.text() == ResultOutputType.PATIENT_COUNT_XML.toString()}.setSize.text()
+        Long.decode(countString)
     }
 
 
