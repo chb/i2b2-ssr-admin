@@ -72,7 +72,7 @@ class StatusService {
                 m.save()
             }
             catch (Exception e) {
-                log.fatal("Error checking machine: " + m?.realName)
+                log.fatal("Host: ${m?.realName} isn't reachable and/or SHRINE isn't responding on the the endpoing at ${m.url}")
             }
         }
     }
@@ -111,6 +111,10 @@ class StatusService {
                     new Credential(tempSession?.sessionId, true))
 
             for (Machine m : Machine.all) {
+                if(m.endpointStatus == Machine.UNREACHABLE){
+                    log.info("Skipping heartbeat on ${m?.name} because the endpoint isn't available")
+                    continue
+                }
                 def url = p.shrineCell + "/rest/"
                 JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
                 long start = System.currentTimeMillis();

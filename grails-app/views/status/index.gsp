@@ -1,42 +1,48 @@
+<%@ page import="grails.converters.JSON" %>
+
 <!doctype html>
 <html>
 <head>
-  <meta name="layout" content="main"/>
-  <title>I2B2SSR Administration</title>
+    <meta name="layout" content="main"/>
+    <title>I2B2SSR Administration</title>
 </head>
 
 <body>
 <h2>Status of entire network</h2>
 
-<div class="contentPane"">
+<div class="contentPane">
 
-<table id="userTable">
-  <!-- Table header -->
-  <thead>
-  <th>Real Name</th>
-  <th>Address</th>
-  <th>Status</th>
-  <th>Last Number of Patients</th>
-  <th>Last Response Time(in Millis)</th>
-  </thead>
+    <table id="userTable">
+        <!-- Table header -->
+        <thead>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Response History</th>
+        <th>Patient Count History</th>
+        </thead>
 
 
-  <!-- Table body -->
-  <tbody>
-  <g:each var="it" in="${machines}" status="i">
-    <tr id="machine" class="${(i % 2 == 0) ? 'even' : 'odd'}">
-      <td>${it.realName}</td>
-      <td>${it.url}</td>
-      <td>${it.endpointStatus}</td>
-      <td>${it.latestStatus()?.numberOfPatients}</td>
-      <td>${it.latestStatus()?.responseTimeInMillis}</td>
-    </tr>
-  </g:each>
-  </tbody>
+        <!-- Table body -->
+        <tbody>
+        <g:each var="it" in="${machines}" status="i">
+            <tr id="machine-${it.id}" class="${(i % 2 == 0) ? 'even' : 'odd'}">
+                <td><g:link controller="machine" action="edit" id="${it.id}">${it.name}</g:link></td>
+                <td>${it.endpointStatus}</td>
+                <td class="graph" data-values="${it.statuses*.responseTimeInMillis as JSON}">
+                    <div class="label"/>
+                    <div class="chart"/>
+                </td>
+                <td class="graph" data-values="${it.statuses*.numberOfPatients as JSON}">
+                    <div class="label"/>
+                    <div class="chart"/>
+                </td>
+            </tr>
+        </g:each>
+        </tbody>
 
-</table>
-<g:paginate controller="status" action="index"
-            total="${count}" max="10"/>
+    </table>
+    <g:paginate controller="status" action="index"
+                total="${count}" max="10"/>
 
 </div>
 </body>
