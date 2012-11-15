@@ -702,3 +702,24 @@ p {
     padding: 10px;
     margin: 40px;
 }
+
+
+.graph {
+    /*display: inline-block;*/
+}
+
+.chart {
+    height: 30px;
+    width: 150px;
+}
+
+.label {
+    color: #999;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+}
+
+.label.error {
+    color: #ff0000;
+}
+
