@@ -35,10 +35,8 @@
       </table>
     </div>
 
-    <div class="buttons">
-      <span class="button">
-        <input class="save" type="submit" value="Login"/>
-      </span>
+
+        <input class="btn btn-primary" type="submit" value="Login"/>
     </div>
   </g:form>
 </div>

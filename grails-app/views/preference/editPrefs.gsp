@@ -6,47 +6,37 @@
 </head>
 
 <body>
-<a href="#list-preference" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                                 default="Skip to content&hellip;"/></a>
-
 
 <div id="editPane">
-    <g:form action="update">
-        <table>
-            <tr>
-                <td>
-                    <label for="shrineAddress">SHRINE Cell Address:</label>
-                </td>
-                <td>
+    <g:form class="form-horizontal" action="update">
+        <fieldset>
+            <legend>System Preferences</legend>
+
+            <div class="control-group">
+                <label class="control-label" for="shrineAddress">SHRINE Cell Address:</label>
+
+                <div class="controls">
                     <input size="70" type="text" id="shrineAddress" name="shrineCell"
                            value="${fieldValue(bean: preference, field: 'shrineCell')}"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="ontCell">Ontology Cell Address:</label>
-                </td>
-                <td>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="ontCell">Ontology Cell Address:</label>
+
+                <div class="controls">
                     <input size="70" type="text" id="ontCell" name="i2b2OntCell"
                            value="${fieldValue(bean: preference, field: 'i2b2OntCell')}"/>
-                </td>
-            </tr>
-            <tr>
-                  <td>
-                      <label for="heartBeatStudy">SHRINE Heartbeat Study</label>
-                  </td>
-                  <td>
-                      <g:select name="heartBeatStudy" from="${studies}"
-                                value="${preference.heartBeatStudy?.id}"
-                                noSelection="${['null':'Disable Heartbeat']}"
-                                optionKey="id"
-                                optionValue="studyName"
-                                multiple="false"/>
-                  </td>
-              </tr>
-        </table>
+                </div>
+            </div>
 
-        <g:submitButton name="save" value="Save"/>
+
+            <div class="control-group">
+                <div class="controls">
+                    <g:submitButton class="btn btn-primary" name="save" value="Save"/>
+                </div>
+            </div>
+        </fieldset>
     </g:form>
 </div>
 
