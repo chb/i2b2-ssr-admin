@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h2>Status of entire network</h2>
+<legend>Status of entire network</legend>
 
 <div class="contentPane">
 

@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<h1>Machine List</h1>
+<legend>Machine List</legend>
 
 <div id="contentPane">
 

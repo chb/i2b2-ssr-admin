@@ -6,17 +6,17 @@
 </head>
 
 <body>
-<h1>Study List</h1>
+<legend>Study List</legend>
 
 <div id="contentPane">
-    <table id="studyTable">
+    <table class="table table-striped">
         <!-- Table header -->
 
         <thead>
         <tr>
             <th>
                 <g:link controller="study" action="create">
-                    <input type="button" value="Add New Study" class="button"/>
+                    <input type="button" value="Add New Study" class="btn btn-primary"/>
                 </g:link>
             </th>
             <th>Study Name</th>
@@ -30,7 +30,7 @@
 
         <g:each var="it" in="${studies}" status="i">
             <tr id="user${it.id}" class="${(i % 2 == 0) ? 'even' : 'odd'}">
-                <td><button class="deleteuser" data-studyname="${it.studyName}" data-studyid="${it.id}">Delete</button>
+                <td><button class="btn btn-danger" data-studyname="${it.studyName}" data-studyid="${it.id}">Delete</button>
                 </td>
                 <td><g:link controller="study" action="edit" id="${it.id}">${it.studyName}</g:link></td>
                 <td>${it.studyDescription}</td>
