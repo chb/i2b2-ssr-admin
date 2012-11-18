@@ -4,7 +4,7 @@ import edu.chip.i2b2ssr.admin.data.Machine
 import edu.chip.i2b2ssr.admin.data.Study
 
 class StudyController {
-    String menuName = "Edit Studies"
+    String menuName = "Studies"
 
 
     static allowedMethods = [list: 'GET', show: 'GET', delete: 'DELETE']
