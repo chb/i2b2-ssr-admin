@@ -12,7 +12,7 @@
 
 <div class="contentPane">
 
-    <table id="userTable">
+    <table id="userTable" class="table table-striped">
         <!-- Table header -->
         <thead>
         <th>Name</th>

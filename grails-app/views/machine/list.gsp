@@ -6,17 +6,17 @@
 </head>
 
 <body>
-<legend>Machine List</legend>
+<legend>Participating SHRINE Nodes</legend>
 
 <div id="contentPane">
 
 
-    <table id="machineTable">
+    <table id="machineTable" class="table table-striped">
         <!-- Table header -->
         <thead>
 
         <th><g:link action="create">
-            <input type="button" value="Add New Machine" class="button"/>
+            <input type="button" value="Add New Machine" class="btn btn-primary"/>
         </g:link></th>
 
         </th>
@@ -31,7 +31,7 @@
 
         <g:each var="it" in="${machines}" status="i">
             <tr id="machine${it.id}" class="${(i % 2 == 0) ? 'even' : 'odd'}">
-                <td><button class="button deletemachine" data-name="${it.name}"
+                <td><button class="btn btn-small btn-danger" data-name="${it.name}"
                             data-machineid="${it.id}">Delete</button>
                 </td>
                 <td><g:link id="${it.id}" action="edit">${it.name}</g:link></td>

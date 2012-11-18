@@ -5,7 +5,7 @@ import edu.chip.i2b2ssr.admin.data.Study
 import org.grails.datastore.mapping.validation.ValidationException
 
 class PreferenceController {
-  String menuName = "Edit Preferences"
+  String menuName = "System Preferences"
 
   def index() {
     redirect(action: editPrefs, params: params)
