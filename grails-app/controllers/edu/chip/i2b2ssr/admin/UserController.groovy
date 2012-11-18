@@ -6,7 +6,7 @@ import edu.chip.i2b2ssr.admin.data.User
 import edu.chip.i2b2ssr.admin.service.AuthenticationService
 
 class UserController {
-  String menuName = "Edit Users"
+  String menuName = "Users"
 
   AuthenticationService authService;
 

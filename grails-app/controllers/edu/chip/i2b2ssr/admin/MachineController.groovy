@@ -4,7 +4,7 @@ import edu.chip.i2b2ssr.admin.data.Machine
 import edu.chip.i2b2ssr.admin.data.Study
 
 class MachineController {
-  String menuName = "Edit Machines"
+  String menuName = "Machines"
 
   static allowedMethods = [list: 'GET', show: 'GET', delete: 'DELETE']
 

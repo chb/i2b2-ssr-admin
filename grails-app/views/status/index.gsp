@@ -8,11 +8,11 @@
 </head>
 
 <body>
-<h2>Status of entire network</h2>
+<legend>Status of entire network</legend>
 
 <div class="contentPane">
 
-    <table id="userTable">
+    <table id="userTable" class="table table-striped">
         <!-- Table header -->
         <thead>
         <th>Name</th>
