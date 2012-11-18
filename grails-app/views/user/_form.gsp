@@ -1,50 +1,27 @@
 <div id="userForm">
-  <g:form action="save">
+<legend>Add/Edit a User</legend>
+<g:form action="save">
     <g:hiddenField name="id" value="${user?.id}"/>
-    <table>
-      <tr>
-        <td><label for="userName">Username:</label></td>
-        <td>
-          <g:textField id="userName" name="userName" value="${user?.userName}"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="realName">Real name:</label>
-        </td>
-        <td>
-          <g:textField id="realName" name="realName" value="${user?.realName}"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="institutionName">Institution:</label>
-        </td>
-        <td>
-          <g:textField id="institutionName" name="institutionName" value="${user?.institutionName}"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="isAdmin">Administrator:</label>
-        </td>
-        <td>
-          <g:checkBox name="isAdmin" value="${user?.isAdmin}"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="homesites">Home Sites:</label>
-        </td>
-        <td>
-          <g:select name="homesites" id="homesites" from="${machines}" optionKey="id"
-                    value="${user?.homesites*.id}"
-                    optionValue="name" multiple="true"/>
-        </td>
-      </tr>
-    </table>
+    <label for="userName">Username:</label></td>
+    <g:textField id="userName" name="userName" value="${user?.userName}"/>
+
+    <label for="realName">Real name:</label>
+    <g:textField id="realName" name="realName" value="${user?.realName}"/>
+
+    <label for="institutionName">Institution:</label>
+    <g:textField id="institutionName" name="institutionName" value="${user?.institutionName}"/>
+
+    <label for="isAdmin">Administrator:</label>
+    <g:checkBox name="isAdmin" value="${user?.isAdmin}"/>
+
+    <label for="homesites">Home Sites:</label>
+    <g:select name="homesites" id="homesites" from="${machines}" optionKey="id"
+              value="${user?.homesites*.id}"
+              optionValue="name" multiple="true"/>
 
 
-    <g:submitButton name="save" value="save"/>
-  </g:form>
+    <div class="control-group">
+    <g:submitButton class="btn btn-primary" name="save" value="save"/>
+    </div>
+</g:form>
 </div>

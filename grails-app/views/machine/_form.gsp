@@ -1,41 +1,28 @@
 <div id="userForm">
     <g:form action="save">
+        <legend>Add a new SHRINE node to network</legend>
+        <fieldset>
         <g:hiddenField name="id" value="${machine?.id}"/>
-        <table>
 
-            <tr>
-                <td><label for="name">Short Name(SHRINE Node Identifier):</label></td>
-                <td>
-                    <g:textField size="60" id="name" name="name" value="${machine?.name}" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="realName">Long Name:</label>
-                </td>
-                <td>
-                    <g:textField  size="60" id="realName" name="realName" value="${machine?.realName}" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="url">SHRINE endpoint URL:</label>
-                </td>
-                <td>
-                    <g:textField size="60" id="url" name="url" value="${machine?.url}" />
-                </td>
-            </tr>
-            %{--<tr>--}%
-                %{--<td>--}%
-                    %{--<label for="url">Certificate (Pase ASCII X.509):</label>--}%
-                %{--</td>--}%
-                %{--<td>--}%
-                    %{--<g:textArea size="60" id="cert" rows="200" cols="300" name="cert" value="${machine?.certificate}" />--}%
-                %{--</td>--}%
+        <label for="name">Short Name(SHRINE Node Identifier):</label></td>
 
-            %{--</tr>--}%
-        </table>
+        <g:textField class="input-xlarge" id="name" name="name" value="${machine?.name}"/>
 
-        <g:submitButton name="save" value="save"/>
+        <label for="realName">Long Name:</label>
+
+        <g:textField class="input-xlarge" id="realName" name="realName" value="${machine?.realName}"/>
+
+
+        <label for="url">SHRINE endpoint URL:</label>
+        <g:textField class="input-xxlarge" id="url" name="url" value="${machine?.url}"/>
+
+
+
+        <div class="controls">
+            <g:submitButton class="btn btn-primary" name="save" value="save"/>
+        </div>
+
+
+        </fieldset>
     </g:form>
 </div>

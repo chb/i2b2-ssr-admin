@@ -15,10 +15,9 @@
 </head>
 
 <body>
-<div id="logo" role="banner"><img src="${resource(dir: 'images', file: 'carranet.png')}" alt="carranet"/>
+<div  id="logo" role="banner"><img  src="${resource(dir: 'images', file: 'carranet.png')}" alt="carranet"/>
 
-    <h3>Administration Tool</h3>
-
+    <h3  style="margin-right: 5%;"class="pull-right">i2b2-ssr Control Panel</h3>
     <div class="welcomeBox">
         <g:if test="${session?.user}">
             Welcome, ${session.user.realName}:<g:link controller="user" action="logout">logout</g:link>
@@ -31,7 +30,7 @@
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                <li><a class="home" href="${createLink(uri: '/')}"><i class="icon-home"></i><g:message code="default.home.label"/></a></li>
                 <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.name }}">
                     <g:if test="${c.hasProperty("menuName")}">
                         <li class="controller"><g:link
@@ -45,7 +44,7 @@
 
 <div class="container">
     <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
+        <div class="alert">${flash.message}</div>
     </g:if>
     <g:layoutBody/>
     <div class="footer" role="contentinfo"></div>
