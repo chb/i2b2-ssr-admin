@@ -9,7 +9,7 @@ import net.shrine.protocol.Credential
 import net.shrine.protocol.ResultOutputType
 import net.shrine.protocol.RunQueryResponse
 import edu.chip.i2b2ssr.admin.data.Status
-import net.shrine.util.JerseyShrineClient
+import net.shrine.client.JerseyShrineClient
 import org.springframework.transaction.annotation.Transactional
 
 class StatusService {
