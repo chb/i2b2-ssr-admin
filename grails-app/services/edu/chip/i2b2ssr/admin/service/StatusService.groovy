@@ -111,7 +111,7 @@ class StatusService {
                     new Credential(tempSession?.sessionId, true))
 
             for (Machine m : Machine.all) {
-                if(m.endpointStatus == Machine.UNREACHABLE){
+                if (m.endpointStatus == Machine.UNREACHABLE) {
                     log.info("Skipping heartbeat on ${m?.name} because the endpoint isn't available")
                     continue
                 }
@@ -128,6 +128,16 @@ class StatusService {
             u.removeFromQuerySessions(tempSession)
             tempSession.delete(flush: true)
         }
+    }
+
+    @Transactional
+    def void cleanupOldStatus() {
+        Calendar c1 = Calendar.getInstance()
+        c1.add(Calendar.DAY_OF_YEAR, -30)
+        for (status in Status.findAllByTimeStampLessThan(c1.getTime())) {
+            status.delete(flush: true)
+        }
+
     }
 
 
