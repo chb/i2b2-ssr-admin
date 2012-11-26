@@ -15,6 +15,8 @@ class HeartbeatJob {
     def execute() {
         log.debug("Running heartbeat")
         statusService.runHeartBeat()
+        log.info("Cleaning up old heartbeat data (> 30 days)")
+        statusService.cleanupOldStatus()
     }
 
 
