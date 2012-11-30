@@ -28,6 +28,7 @@ class StatusJob {
   def execute() {
     log.info("Running status check on cluster")
     statusService.checkEndpointStatus()
+
   }
 
 

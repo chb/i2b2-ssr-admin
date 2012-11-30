@@ -44,7 +44,7 @@
       <environment>PRODUCTION</environment>
       <helpURL>http://www.i2b2.org</helpURL>
       <user>
-        <full_name>i2b2 User</full_name>
+        <full_name>${user?.realName}</full_name>
         <user_name>${user?.userName}</user_name>
         <password token_ms_timeout="1800000" is_token="true">${session.sessionId}</password>
         <domain>domain</domain>
