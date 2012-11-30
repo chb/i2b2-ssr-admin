@@ -72,63 +72,96 @@ class StatusService {
                 m.save()
             }
             catch (Exception e) {
+                e.printStackTrace()
                 log.fatal("Host: ${m?.realName} isn't reachable and/or SHRINE isn't responding on the the endpoing at ${m.url}")
             }
         }
     }
 
     def void runHeartBeat() {
-        String sessionId = null
+        Long sessionId = null
+        AuthenticationInfo auth
+        List<Long> machineIds = new ArrayList<Long>()
+        Long userId
+        String shrineCellAddress
+        Boolean wroteQuerySession = false
 
-        //create a new temporary session, to be deleted immediately after completing the query
+        /*
+            The status happens in 3 steps
+            1) Create a temporary QuerySession in it's own transaction
+            2) Run status check for each machine in it's own transaction so
+            3) Delete QuerySession in it's own transaction
+
+         */
         User.withTransaction { status ->
-            log.info("Running status check on cluster")
+            try {
+                log.info("Running status check on cluster")
 
-            User u = User.backgroundJobUser
-            if (u == null) {
-                log.fatal("Can't find i2b2 background job user, it should've been" +
-                        "created by BootStrap.groovy")
-                return
+                User u = User.backgroundJobUser
+                if (u == null) {
+                    log.fatal("Can't find i2b2 background job user, it should've been" +
+                            "created by BootStrap.groovy")
+                    return
+                }
+
+                QuerySession tempSession = new QuerySession(sessionId: UUID.randomUUID().toString())
+                u.addToQuerySessions(tempSession)
+                u.save(failOnError: true, flush: true)
+                wroteQuerySession = true
+                sessionId = tempSession.id
+                Preference p = Preference.first()
+                if (!sessionId) {
+                    log.fatal("There was a previous error creating a temporary sesion, can't continue")
+                }
+                shrineCellAddress = p.shrineCell
+                userId = u.id
+                auth = new AuthenticationInfo("test", u?.userName,
+                        new Credential(tempSession?.sessionId, true))
+                machineIds.addAll(Machine.all*.id)
             }
-            QuerySession tempSession = new QuerySession(sessionId: UUID.randomUUID().toString())
-            u.addToQuerySessions(tempSession)
-            u.save(failOnError: true, flush: true)
-            sessionId = tempSession.sessionId
+            catch (Exception e) {
+                e.printStackTrace()
+                log.fatal("Error writing to database")
+                status.setRollbackOnly();
+            }
+        }
+
+        if (!wroteQuerySession) {
+            throw new RuntimeException("Couldn't write query session, bombing out of status check")
+        }
+
+        //One transaction per machine so individual results can be logged
+        for (Long id : machineIds) {
+            Status.withTransaction { status ->
+
+                Machine m = Machine.findById(id)
+                if (m.endpointStatus == Machine.UNREACHABLE) {
+                    log.info("Skipping heartbeat on ${m?.name} because the endpoint isn't available")
+
+                }
+                else {
+                    def url = shrineCellAddress + "/rest/"
+                    JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
+                    long start = System.currentTimeMillis();
+                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
+                    long numberOfPatients = setSizeFromResponseXML(r.toXml().toString())
+                    long end = System.currentTimeMillis()
+                    Status s = new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start))
+                    s.machine = m
+                    s.save(failOnError: true)
+                }
+            }
 
         }
 
-
-        Preference.withTransaction { status ->
-            Preference p = Preference.first()
-
-            if (!sessionId) {
-                log.fatal("There was a previous error creating a temporary sesion, can't continue")
-            }
-
-            QuerySession tempSession = QuerySession.findBySessionId(sessionId)
-            User u = tempSession?.user
-            AuthenticationInfo auth = new AuthenticationInfo("test", u?.userName,
-                    new Credential(tempSession?.sessionId, true))
-
-            for (Machine m : Machine.all) {
-                if(m.endpointStatus == Machine.UNREACHABLE){
-                    log.info("Skipping heartbeat on ${m?.name} because the endpoint isn't available")
-                    continue
-                }
-                def url = p.shrineCell + "/rest/"
-                JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
-                long start = System.currentTimeMillis();
-                RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
-                long numberOfPatients = setSizeFromResponseXML(r.toXml().toString())
-                long end = System.currentTimeMillis()
-                Status s = new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start))
-                s.machine = m
-                s.save(failOnError: true)
-            }
-            u.removeFromQuerySessions(tempSession)
+        User.withTransaction { status ->
+            QuerySession tempSession = QuerySession.findById(sessionId)
             tempSession.delete(flush: true)
         }
+
+
     }
+
 
 
     protected def Long setSizeFromResponseXML(String responseXML) {
