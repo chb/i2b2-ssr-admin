@@ -129,7 +129,7 @@
         <dependency>
             <groupId>net.shrine</groupId>
             <artifactId>shrine-commons</artifactId>
-            <version>1.12</version>
+            <version>1.14-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -225,9 +225,6 @@
             <id>open.med.harvard.edu</id>
             <name>Open Med</name>
             <url>http://repo.open.med.harvard.edu/nexus/content/groups/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
             <releases>
                 <updatePolicy>never</updatePolicy>
             </releases>
