@@ -9,8 +9,10 @@ import net.shrine.protocol.Credential
 import net.shrine.protocol.ResultOutputType
 import net.shrine.protocol.RunQueryResponse
 import edu.chip.i2b2ssr.admin.data.Status
-import net.shrine.util.JerseyShrineClient
 import org.springframework.transaction.annotation.Transactional
+import net.shrine.client.JerseyShrineClient
+import net.shrine.protocol.query.QueryDefinition
+import net.shrine.protocol.query.Term
 
 class StatusService {
     static transactional = false
@@ -85,7 +87,8 @@ class StatusService {
         Long userId
         String shrineCellAddress
         Boolean wroteQuerySession = false
-
+        def queryDef = new QueryDefinition("CARRA Registry v2.0",
+                                            new Term("\\CARRA Registry v2.0\\"))
         /*
             The status happens in 3 steps
             1) Create a temporary QuerySession in it's own transaction
@@ -143,7 +146,7 @@ class StatusService {
                     def url = shrineCellAddress + "/rest/"
                     JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
                     long start = System.currentTimeMillis();
-                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, heartbeatQueryPanel)
+                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, queryDef)
                     long numberOfPatients = setSizeFromResponseXML(r.toXml().toString())
                     long end = System.currentTimeMillis()
                     Status s = new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start))
