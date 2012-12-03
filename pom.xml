@@ -225,9 +225,6 @@
             <id>open.med.harvard.edu</id>
             <name>Open Med</name>
             <url>http://repo.open.med.harvard.edu/nexus/content/groups/public</url>
-            <releases>
-                <updatePolicy>never</updatePolicy>
-            </releases>
         </repository>
     </repositories>
 
