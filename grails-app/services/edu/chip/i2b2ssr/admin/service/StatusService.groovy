@@ -165,6 +165,15 @@ class StatusService {
 
     }
 
+    def void cleanupOldStatus(){
+        Calendar c1 = Calendar.getInstance()
+        c1.add(Calendar.DAY_OF_YEAR, -30)
+        for (status in Status.findAllByTimeStampLessThan(c1.getTime())) {
+            status.delete(flush: true)
+        }
+    }
+
+
 
 
     protected def Long setSizeFromResponseXML(String responseXML) {
