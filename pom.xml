@@ -71,7 +71,10 @@
             <scope>runtime</scope>
         </dependency>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4aa7864438970d4b93f4d4fca115571473b18cca
         <dependency>
             <groupId>org.grails.plugins</groupId>
             <artifactId>twitter-bootstrap</artifactId>
@@ -132,6 +135,7 @@
             <artifactId>shrine-commons</artifactId>
             <version>1.14-SNAPSHOT</version>
         </dependency>
+<<<<<<< HEAD
 
         <dependency>
         	<groupId>org.nuiton.thirdparty</groupId>
@@ -139,6 +143,8 @@
         	<version>0.8-4</version>
         </dependency>
 
+=======
+>>>>>>> 4aa7864438970d4b93f4d4fca115571473b18cca
     </dependencies>
 
     <build>
