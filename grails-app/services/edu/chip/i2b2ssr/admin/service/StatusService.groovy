@@ -161,6 +161,7 @@ class StatusService {
 
         User.withTransaction { status ->
             QuerySession tempSession = QuerySession.findById(sessionId)
+            tempSession.user.removeFromQuerySessions(tempSession)
             tempSession.delete(flush: true)
         }
 
