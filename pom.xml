@@ -13,7 +13,7 @@
     <url>http://www.chip.org</url>
 
     <properties>
-        <grails.version>2.1.1</grails.version>
+        <grails.version>2.2.1</grails.version>
     </properties>
 
 
@@ -70,6 +70,7 @@
             <type>zip</type>
             <scope>runtime</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.grails.plugins</groupId>
@@ -131,6 +132,13 @@
             <artifactId>shrine-commons</artifactId>
             <version>1.14-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+        	<groupId>org.nuiton.thirdparty</groupId>
+        	<artifactId>JRI</artifactId>
+        	<version>0.8-4</version>
+        </dependency>
+
     </dependencies>
 
     <build>
