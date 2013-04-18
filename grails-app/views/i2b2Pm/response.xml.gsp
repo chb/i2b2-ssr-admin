@@ -49,7 +49,7 @@
         <password token_ms_timeout="1800000" is_token="true">${session.sessionId}</password>
         <domain>domain</domain>
         <is_admin></is_admin>
-        <g:each in="${user.permissions}">
+        <g:each in="${permissions}">
           <project id="${it?.study?.studyName}">
             <name>${it?.study?.studyName}</name>
             <wiki>http://www.i2b2.org</wiki>
