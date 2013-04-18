@@ -163,6 +163,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.spin</groupId>
+            <artifactId>tools-nodeps</artifactId>
+            <version>1.19</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.nuiton.thirdparty</groupId>
             <artifactId>JRI</artifactId>
             <version>0.8-4</version>
@@ -240,8 +246,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -261,7 +267,7 @@
         <repository>
             <id>open.med.harvard.edu</id>
             <name>Open Med</name>
-            <url>http://repo.open.med.harvard.edu/nexus/content/repositories/releases/</url>
+            <url>http://repo.open.med.harvard.edu/nexus/content/repositories/releases</url>
         </repository>
     </repositories>
 
