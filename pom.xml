@@ -97,7 +97,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.grails.plugins</groupId>
             <artifactId>console</artifactId>
@@ -131,13 +130,20 @@
             <groupId>net.shrine</groupId>
             <artifactId>shrine-commons</artifactId>
             <version>1.14-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/shrine-commons-1.14-SNAPSHOT.jar</systemPath>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.7</version>
+        </dependency>
 
         <dependency>
-        	<groupId>org.nuiton.thirdparty</groupId>
-        	<artifactId>JRI</artifactId>
-        	<version>0.8-4</version>
+            <groupId>org.nuiton.thirdparty</groupId>
+            <artifactId>JRI</artifactId>
+            <version>0.8-4</version>
         </dependency>
 
     </dependencies>
