@@ -1,9 +1,7 @@
 package edu.chip.i2b2ssr.admin
 
-import edu.chip.i2b2ssr.admin.data.Permission
 import edu.chip.i2b2ssr.admin.data.Preference
 import edu.chip.i2b2ssr.admin.data.QuerySession
-import edu.chip.i2b2ssr.admin.data.Study
 import edu.chip.i2b2ssr.admin.service.AuthenticationService
 import edu.chip.i2b2ssr.admin.service.exception.PermissionException
 
@@ -32,19 +30,7 @@ class I2b2PmController {
         String shrineCellUrl = p.shrineCell + "/rest/i2b2/"
         String ontCellUrl = p.i2b2OntCell + "/"
 
-        def c = Permission.createCriteria()
-        def permissions = c.list {
-            eq("user", q?.user)
-            study {
-                order("studyName", "asc")
-            }
-
-        }
-
-
-
-
-
+        def permissions = q.user.permissions
         render(contentType: "text/xml", view: "response.xml", model: [permissions: permissions, session: q, user: q.user, shrineCellUrl: shrineCellUrl, ontCellUrl: ontCellUrl])
     }
 
