@@ -265,8 +265,8 @@
             <url>http://repo.grails.org/grails/plugins</url>
         </repository>
         <repository>
-            <id>open.med.harvard.edu</id>
-            <name>Open Med</name>
+            <id>nexus</id>
+            <name>Nexus Repo</name>
             <url>http://repo.open.med.harvard.edu/nexus/content/repositories/releases</url>
         </repository>
     </repositories>

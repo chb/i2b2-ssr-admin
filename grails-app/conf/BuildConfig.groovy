@@ -13,7 +13,7 @@ grails.project.dependency.resolution = {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "info" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums false // Whether to verify checksums on resolve
 
     repositories {
@@ -25,8 +25,6 @@ grails.project.dependency.resolution = {
 
         mavenLocal()
         mavenCentral()
-
-        mavenRepo "http://repo.open.med.harvard.edu/nexus/content/repositories/releases"
 
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://snapshots.repository.codehaus.org"
