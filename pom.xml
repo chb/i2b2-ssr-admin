@@ -164,7 +164,7 @@
 
         <dependency>
             <groupId>org.spin</groupId>
-            <artifactId>tools-nodeps</artifactId>
+            <artifactId>tools</artifactId>
             <version>1.19</version>
         </dependency>
 
