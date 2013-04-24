@@ -108,7 +108,7 @@ class StatusServiceTest {
         RunQueryResponse resp0 = RunQueryResponse.fromXml(TestUtil.loadScalaXml(xml))
          def mock = new MockFor(JerseyShrineClient)
         mock.demand.runQuery(1) {
-            String arg1, Set<ResultOutputType> arg2, QueryDefinition d -> return resp0
+            String arg1, Set<ResultOutputType> arg2, QueryDefinition d, Boolean t -> return resp0
         }
 
         mock.use {

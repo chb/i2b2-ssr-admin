@@ -113,7 +113,7 @@ class StatusService {
                     def url = shrineCellAddress + "/rest/"
                     JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
                     long start = System.currentTimeMillis();
-                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML()] as Set, queryDef)
+                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML()] as Set, queryDef, true)
                     long numberOfPatients = r.singleNodeResult().setSize()
                     long end = System.currentTimeMillis()
                     Status s = new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start))
