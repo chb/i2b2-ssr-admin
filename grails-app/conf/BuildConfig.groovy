@@ -24,7 +24,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
 
         mavenLocal()
-        mavenCentral()
+
         mavenRepo("http://repo.open.med.harvard.edu/nexus/content/repositories/releases")
 
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
