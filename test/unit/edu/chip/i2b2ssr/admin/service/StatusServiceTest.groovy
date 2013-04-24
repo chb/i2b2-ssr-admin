@@ -47,17 +47,7 @@ class StatusServiceTest {
 </aggregatedRunQueryResponse>
     """
 
-    /**
-     * Test that we the patient size out of the response
-     *
-     */
-    def testParseResponse() {
-        StatusService testInstance = new StatusService()
-        long setSize = testInstance.setSizeFromResponseXML(xml)
-        assertEquals(121L, setSize)
 
-
-    }
 
     /**
      * Test that cleanup sweeps up Status messages that our older than 30 days

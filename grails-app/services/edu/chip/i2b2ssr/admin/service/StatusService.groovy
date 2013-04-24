@@ -16,45 +16,8 @@ import net.shrine.protocol.query.Term
 
 class StatusService {
     static transactional = false
-    /*
-      TODO - FIXME - i2b2 makes a generic find-all-patients query difficult because there
-      doesn't seem to be a good way in i2b2 to say, hey bro, give me all your patients, you
-      need to specify a term which absolutely kills portability.  We'll have to make this a config
-      option at some point :-/
-     */
 
-    private String heartbeatQueryPanel = """
-        <ns4:query_definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xmlns:ns8="http://www.i2b2.org/xsd/hive/msg/result/1.1/"
-                        xmlns:ns6="http://www.i2b2.org/xsd/cell/crc/psm/analysisdefinition/1.1/"
-                        xmlns:ns5="http://www.i2b2.org/xsd/cell/crc/psm/querydefinition/1.1/"
-                        xmlns:imsg="http://www.i2b2.org/xsd/hive/msg/1.1/"
-                        xmlns:ns3="http://www.i2b2.org/xsd/hive/plugin/"
-                        xmlns:ns4="http://www.i2b2.org/xsd/cell/crc/psm/1.1/"
-                        xmlns:ns2="http://www.i2b2.org/xsd/hive/pdo/1.1/">
-                  <query_name>i2b2-ssr-status</query_name>
-                  <query_description>Status Query</query_description>
-                  <query_timing>ANY</query_timing>
-                  <specificity_scale>0</specificity_scale>
-                  <panel name="Panel_1">
-                      <panel_number>1</panel_number>
-                      <panel_accuracy_scale>0</panel_accuracy_scale>
-                      <invert>0</invert>
-                      <total_item_occurrences>1</total_item_occurrences>
-                    <item>
-                        <hlevel>0</hlevel>
-                        <item_name>CARRA Registry v2.0</item_name>
-                        <item_key>\\CARRA Registry v2.0\\</item_key>
-                        <dim_tablename>concept_dimension</dim_tablename>
-                        <dim_columnname>concept_path</dim_columnname>
-                        <dim_dimcode>\\CARRA_Reg_v2.0\\</dim_dimcode>
-                        <dim_columndatatype>T</dim_columndatatype>
-                        <facttablecolumn>concept_cd</facttablecolumn>
-                        <item_is_synonym>false</item_is_synonym>
-                    </item>
-                  </panel>
-              </ns4:query_definition>
-  """
+
 
     @Transactional
     def checkEndpointStatus() {
@@ -67,8 +30,7 @@ class StatusService {
                         m.url.getContent()) {
                     m.endpointStatus = Machine.REACHABLE
 
-                }
-                else {
+                } else {
                     m.endpointStatus = Machine.UNREACHABLE
                 }
                 m.save()
@@ -87,8 +49,14 @@ class StatusService {
         Long userId
         String shrineCellAddress
         Boolean wroteQuerySession = false
+        /*
+   TODO - FIXME - i2b2 makes a generic find-all-patients query difficult because there
+   doesn't seem to be a good way in i2b2 to say, hey bro, give me all your patients, you
+   need to specify a term which absolutely kills portability.  We'll have to make this a config
+   option at some point :-/
+  */
         def queryDef = new QueryDefinition("CARRA Registry v2.0",
-                                            new Term("\\CARRA Registry v2.0\\"))
+                new Term("\\CARRA Registry v2.0\\"))
         /*
             The status happens in 3 steps
             1) Create a temporary QuerySession in it's own transaction
@@ -141,13 +109,12 @@ class StatusService {
                 if (m.endpointStatus == Machine.UNREACHABLE) {
                     log.info("Skipping heartbeat on ${m?.name} because the endpoint isn't available")
 
-                }
-                else {
+                } else {
                     def url = shrineCellAddress + "/rest/"
                     JerseyShrineClient client = new JerseyShrineClient(url, "machine-${m.name}", auth, true)
                     long start = System.currentTimeMillis();
-                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML] as Set, queryDef)
-                    long numberOfPatients = setSizeFromResponseXML(r.toXml().toString())
+                    RunQueryResponse r = client.runQuery("heartbeat", [ResultOutputType.PATIENT_COUNT_XML()] as Set, queryDef)
+                    long numberOfPatients = r.singleNodeResult().setSize()
                     long end = System.currentTimeMillis()
                     Status s = new Status(numberOfPatients: numberOfPatients, responseTimeInMillis: (end - start))
                     s.machine = m
@@ -168,22 +135,11 @@ class StatusService {
 
     }
 
-    def void cleanupOldStatus(){
+    def void cleanupOldStatus() {
         Calendar c1 = Calendar.getInstance()
         c1.add(Calendar.DAY_OF_YEAR, -30)
         for (status in Status.findAllByTimeStampLessThan(c1.getTime())) {
             status.delete(flush: true)
         }
     }
-
-
-
-
-    protected def Long setSizeFromResponseXML(String responseXML) {
-        def node = new XmlSlurper().parseText(responseXML)
-        def countString = node.queryResults.queryResult.find { it.resultType.text() == ResultOutputType.PATIENT_COUNT_XML.toString()}.setSize.text()
-        Long.decode(countString)
-    }
-
-
 }
