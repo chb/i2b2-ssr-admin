@@ -1,42 +1,51 @@
 package edu.chip.i2b2ssr.admin.service
 
-import grails.test.mixin.TestFor
-import edu.chip.i2b2ssr.admin.data.User
-import edu.chip.i2b2ssr.admin.data.QuerySession
+import edu.chip.i2b2ssr.admin.TestUtil
+import edu.chip.i2b2ssr.admin.data.*
 import grails.test.mixin.Mock
-import edu.chip.i2b2ssr.admin.data.Status
-import edu.chip.i2b2ssr.admin.data.Machine
-
-
+import grails.test.mixin.TestFor
+import groovy.mock.interceptor.MockFor
+import net.shrine.client.JerseyShrineClient
+import net.shrine.client.ShrineClient
+import net.shrine.protocol.AggregatedRunQueryResponse
+import net.shrine.protocol.AuthenticationInfo
+import net.shrine.protocol.ResultOutputType
+import net.shrine.protocol.RunQueryResponse
+import net.shrine.protocol.query.QueryDefinition
 
 @TestFor(StatusService)
-@Mock([Status, Machine])
+@Mock([Status, Machine, User, QuerySession, Preference])
 class StatusServiceTest {
 
     static def xml = """
-        <runQueryResponse>
-            <queryId>3796401183509203133</queryId>
+<aggregatedRunQueryResponse>
+    <queryId>1</queryId>
+    <instanceId>2</instanceId>
+    <userId>user</userId>
+    <groupId>group</groupId>
+    <requestXml>
+        <queryDefinition>
+            <name>queryName</name>
+            <expr>
+                <term>\\\\i2b2\\i2b2\\Demographics\\Age\\0-9 years old\\</term>
+            </expr>
+        </queryDefinition>
+    </requestXml>
+    <createDate>2002-05-30T09:30:10-06:00</createDate>
+    <queryResults>
+        <queryResult>
+            <resultId>0</resultId>
             <instanceId>18779701026353076</instanceId>
-            <userId>systemJobUser</userId>
-            <groupId>machine-StagingNode1</groupId>
-        <requestXml>
-        </requestXml>
-        <createDate>2012-11-13T13:19:46.933-05:00</createDate>
-        <queryResults>
-            <queryResult>
-                <resultId>0</resultId>
-                <instanceId>18779701026353076</instanceId>
-                <resultType>PATIENT_COUNT_XML</resultType>
-                <setSize>121</setSize>
-                <startDate>2012-11-13T13:19:46.933-05:00</startDate>
-                <endDate>2012-11-13T13:19:46.933-05:00</endDate>
-                <description>TOTAL COUNT</description>
-                <status>FINISHED</status>
-            </queryResult>
-        </queryResults>
-    </runQueryResponse>
+            <resultType>PATIENT_COUNT_XML</resultType>
+            <setSize>121</setSize>
+            <startDate>2012-11-13T13:19:46.933-05:00</startDate>
+            <endDate>2012-11-13T13:19:46.933-05:00</endDate>
+            <description>TOTAL COUNT</description>
+            <status>FINISHED</status>
+        </queryResult>
+    </queryResults>
+</aggregatedRunQueryResponse>
     """
-
 
     /**
      * Test that we the patient size out of the response
@@ -86,6 +95,38 @@ class StatusServiceTest {
 
 
     }
+
+
+
+    /*
+        A simple test to go end-to-end with the SHRINE JerseyShrineClient,
+        most of the complexity lies in making sure we're giving the Scala Serializers
+        something they won't die on and making sure our classpath is setup properly.
+     */
+    def testStatusQuery() {
+        User u = new User(userName: User.SYSTEM_USER, isSystemUser: true)
+        Preference p = new Preference(i2b2OntCell: "http://test.com", shrineCell: "http://test.org")
+        p.save(failOnError: true)
+
+        u.save(failOnError: true)
+
+        Machine testM1 = new Machine(name: "TEST", realName: "TESTMACHINE",
+                url: new URL("http://test.com"), endpointStatus: Machine.REACHABLE)
+        testM1.save(failOnError: true)
+        StatusService testService = new StatusService()
+
+        RunQueryResponse resp0 = RunQueryResponse.fromXml(TestUtil.loadScalaXml(xml))
+         def mock = new MockFor(JerseyShrineClient)
+        mock.demand.runQuery(1) {
+            String arg1, Set<ResultOutputType> arg2, QueryDefinition d -> return resp0
+        }
+
+        mock.use {
+            testService.runHeartBeat()
+        }
+        assertEquals(testM1.latestStatus().numberOfPatients, 121 )
+    }
+
 
 }
 
