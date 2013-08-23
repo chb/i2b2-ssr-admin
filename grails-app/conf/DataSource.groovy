@@ -25,12 +25,12 @@ environments {
   }
   production {
     dataSource {
-      driverClassName = "com.mysql.jdbc.Driver"
-      dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-      dbCreate = "update"
-      url = "jdbc:mysql://localhost/carranet_new"
-      username = "carranet_new"
-      password = "carranet"
+      driverClassName = ""
+      dialect = ""
+      dbCreate = ""
+      url = ""
+      username = ""
+      password = ""
       pooled = true
       properties {
         maxActive = -1

@@ -28,7 +28,7 @@
 
         <g:each var="it" in="${users}" status="i">
             <tr id="user${it.id}">
-                <td><button class="btn btn-danger" data-username="${it.userName}" data-userid="${it.id}">Delete</button>
+                <td><button id="deleteuser" class="btn btn-danger" data-username="${it.userName}" data-userid="${it.id}">Delete</button>
                 </td>
                 <td><g:link id="${it.id}" action="edit">${it.userName}</g:link><g:if test="${user?.isAdmin}">*</g:if></td>
                 <td>${it.realName}</td>

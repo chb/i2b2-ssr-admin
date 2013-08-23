@@ -15,29 +15,33 @@ grails.project.groupId = appName // change this to alter the default package nam
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [
-    all:           '*/*',
-    atom:          'application/atom+xml',
-    css:           'text/css',
-    csv:           'text/csv',
-    form:          'application/x-www-form-urlencoded',
-    html:          ['text/html','application/xhtml+xml'],
-    js:            'text/javascript',
-    json:          ['application/json', 'text/json'],
-    multipartForm: 'multipart/form-data',
-    rss:           'application/rss+xml',
-    text:          'text/plain',
-    xml:           ['text/xml', 'application/xml']
+        all: '*/*',
+        atom: 'application/atom+xml',
+        css: 'text/css',
+        csv: 'text/csv',
+        form: 'application/x-www-form-urlencoded',
+        html: ['text/html', 'application/xhtml+xml'],
+        js: 'text/javascript',
+        json: ['application/json', 'text/json'],
+        multipartForm: 'multipart/form-data',
+        rss: 'application/rss+xml',
+        text: 'text/plain',
+        xml: ['text/xml', 'application/xml']
 ]
+
+
+def currentEnv = Environment.current
+
 
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 
 // What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+    grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 // The default codec used to encode data with ${}
-grails.views.default.codec = "none" // none, html, base64
-grails.views.gsp.encoding = "UTF-8"
+    grails.views.default.codec = "none" // none, html, base64
+            grails .views.gsp.encoding = "UTF-8"
 grails.converters.encoding = "UTF-8"
 // enable Sitemesh preprocessing of GSP pages
 grails.views.gsp.sitemesh.preprocess = true
@@ -51,7 +55,7 @@ grails.enable.native2ascii = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 // whether to disable processing of multi part requests
-grails.web.disable.multipart=false
+grails.web.disable.multipart = false
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
@@ -64,7 +68,7 @@ grails.hibernate.cache.queries = false
  */
 
 
-i2b2ssr.routingTableFile = System.getProperty("user.home") + "/.spin/conf/routingtable.xml"
+i2b2ssr.routingTableFile = System.getProperty ("user.home") + "/.spin/conf/routingtable.xml"
 
 //How long query sessions last in minutes
 i2b2ssr.querySessionTimeout = 30
@@ -72,9 +76,16 @@ i2b2ssr.querySessionTimeout = 30
 environments {
     development {
         grails.logging.jul.usebridge = true
+        grails.config.locations = ["classpath:i2b2-ssr-admin.default.properties"]
+
+    }
+    test{
+        grails.config.locations = ["classpath:i2b2-ssr-admin.default.properties"]
+
     }
     production {
         grails.logging.jul.usebridge = false
+        grails.config.locations = ["file:/home/carra/i2b2-ssr-admin.properties"]
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
@@ -84,20 +95,20 @@ log4j = {
     // Example of changing the log pattern for the default console appender:
     //
     appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+        console name: 'stdout', layout: pattern(conversionPattern: '%c{2} %m%n')
     }
 
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+    error 'org.codehaus.groovy.grails.web.servlet',        // controllers
+            'org.codehaus.groovy.grails.web.pages',          // GSP
+            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+            'org.codehaus.groovy.grails.commons',            // core / classloading
+            'org.codehaus.groovy.grails.plugins',            // plugins
+            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
 
-  debug 'grails.app.jobs'
+    debug 'grails.app.jobs'
 }
