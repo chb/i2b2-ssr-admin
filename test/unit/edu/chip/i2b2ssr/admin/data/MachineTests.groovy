@@ -7,7 +7,7 @@ import org.junit.Test
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(Machine)
-@Mock([Study, Machine])
+@Mock([Study, Machine, Status])
 class MachineTests {
 
   @Test
@@ -20,7 +20,9 @@ class MachineTests {
     Status s3 = new Status(timeStamp: c1.getTime(), numberOfPatients: 3, responseTimeInMillis: 30)
 
     Machine p = new Machine(name: "Dave", realName: "test", url: new URL("http://test.com"))
-    p.addToStatuses(s1)
+
+
+     p.addToStatuses(s1)
     p.addToStatuses(s2)
     p.addToStatuses(s3)
     assertEquals(p.name, "Dave")

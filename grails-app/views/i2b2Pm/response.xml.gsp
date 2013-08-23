@@ -44,12 +44,12 @@
       <environment>PRODUCTION</environment>
       <helpURL>http://www.i2b2.org</helpURL>
       <user>
-        <full_name>i2b2 User</full_name>
+        <full_name>${user?.realName}</full_name>
         <user_name>${user?.userName}</user_name>
         <password token_ms_timeout="1800000" is_token="true">${session.sessionId}</password>
         <domain>domain</domain>
         <is_admin></is_admin>
-        <g:each in="${user.permissions}">
+        <g:each in="${permissions}">
           <project id="${it?.study?.studyName}">
             <name>${it?.study?.studyName}</name>
             <wiki>http://www.i2b2.org</wiki>

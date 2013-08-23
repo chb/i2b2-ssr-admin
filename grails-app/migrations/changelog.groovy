@@ -1,236 +1,264 @@
 databaseChangeLog = {
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-1") {
-		createTable(tableName: "MACHINE") {
-			column(autoIncrement: "true", name: "ID", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "CONSTRAINT_5")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-1") {
+		createTable(tableName: "machine") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "machinePK")
 			}
 
-			column(name: "VERSION", type: "BIGINT") {
+			column(name: "version", type: "bigint") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "CERTIFICATE", type: "VARCHAR(255)")
+			column(name: "certificate", type: "varchar(255)")
 
-			column(name: "LAST_PATIENT_COUNT", type: "INT")
+			column(name: "endpoint_status", type: "varchar(255)")
 
-			column(name: "LAST_RESPONSE_TIME_IN_MILLIS", type: "BIGINT")
-
-			column(name: "NAME", type: "VARCHAR(255)") {
+			column(name: "name", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "REAL_NAME", type: "VARCHAR(255)") {
+			column(name: "real_name", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "STATUS", type: "VARCHAR(255)")
-
-			column(name: "URL", type: "VARCHAR(255)") {
+			column(name: "url", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-2") {
-		createTable(tableName: "PERMISSION") {
-			column(autoIncrement: "true", name: "ID", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "CONSTRAINT_F")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-2") {
+		createTable(tableName: "permission") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "permissionPK")
 			}
 
-			column(name: "VERSION", type: "BIGINT") {
+			column(name: "version", type: "bigint") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "ALLOW_PDO", type: "BOOLEAN") {
+			column(name: "allow_pdo", type: "boolean") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "ALLOW_SITE_IDENTIFY", type: "BOOLEAN") {
+			column(name: "allow_site_identify", type: "boolean") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "STUDY_ID", type: "BIGINT") {
+			column(name: "study_id", type: "bigint") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "USER_ID", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-		}
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-3") {
-		createTable(tableName: "PREFERENCE") {
-			column(autoIncrement: "true", name: "ID", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "CONSTRAINT_C")
-			}
-
-			column(name: "VERSION", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "HEART_BEAT_STUDY_ID", type: "BIGINT")
-
-			column(name: "I2B2ONT_CELL", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "SHRINE_CELL", type: "VARCHAR(255)") {
+			column(name: "user_id", type: "bigint") {
 				constraints(nullable: "false")
 			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-4") {
-		createTable(tableName: "QUERY_SESSION") {
-			column(autoIncrement: "true", name: "ID", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "CONSTRAINT_2")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-3") {
+		createTable(tableName: "preference") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "preferencePK")
 			}
 
-			column(name: "VERSION", type: "BIGINT") {
+			column(name: "version", type: "bigint") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "CREATED", type: "TIMESTAMP") {
+			column(name: "heart_beat_study_id", type: "bigint")
+
+			column(name: "i2b2ont_cell", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "SESSION_ID", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "USER_ID", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-		}
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-5") {
-		createTable(tableName: "STUDY") {
-			column(autoIncrement: "true", name: "ID", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "CONSTRAINT_4")
-			}
-
-			column(name: "VERSION", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "STUDY_DESCRIPTION", type: "VARCHAR(255)")
-
-			column(name: "STUDY_NAME", type: "VARCHAR(255)") {
+			column(name: "shrine_cell", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-6") {
-		createTable(tableName: "STUDY_MACHINES") {
-			column(name: "MACHINE_ID", type: "BIGINT") {
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-4") {
+		createTable(tableName: "query_session") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "query_sessionPK")
+			}
+
+			column(name: "version", type: "bigint") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "STUDY_ID", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-		}
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-7") {
-		createTable(tableName: "USER") {
-			column(autoIncrement: "true", name: "ID", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "CONSTRAINT_27")
-			}
-
-			column(name: "VERSION", type: "BIGINT") {
+			column(name: "created", type: "timestamp") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "INSTITUTION_NAME", type: "VARCHAR(255)")
-
-			column(name: "IS_ADMIN", type: "BOOLEAN") {
+			column(name: "session_id", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 
-			column(name: "IS_SYSTEM_USER", type: "BOOLEAN") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "REAL_NAME", type: "VARCHAR(255)")
-
-			column(name: "USER_NAME", type: "VARCHAR(255)") {
+			column(name: "user_id", type: "bigint") {
 				constraints(nullable: "false")
 			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-8") {
-		createTable(tableName: "USER_MACHINE") {
-			column(name: "USER_HOMESITES_ID", type: "BIGINT")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-5") {
+		createTable(tableName: "status") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "statusPK")
+			}
 
-			column(name: "MACHINE_ID", type: "BIGINT")
+			column(name: "version", type: "bigint") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "machine_id", type: "bigint") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "number_of_patients", type: "bigint") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "response_time_in_millis", type: "bigint") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "time_stamp", type: "timestamp") {
+				constraints(nullable: "false")
+			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-9") {
-		addPrimaryKey(columnNames: "STUDY_ID, MACHINE_ID", constraintName: "CONSTRAINT_A", tableName: "STUDY_MACHINES")
-	}
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-6") {
+		createTable(tableName: "study") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "studyPK")
+			}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-10") {
-		addForeignKeyConstraint(baseColumnNames: "STUDY_ID", baseTableName: "PERMISSION", baseTableSchemaName: "PUBLIC", constraintName: "FKE125C5CFCAEA9D74", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "STUDY", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
+			column(name: "version", type: "bigint") {
+				constraints(nullable: "false")
+			}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-11") {
-		addForeignKeyConstraint(baseColumnNames: "USER_ID", baseTableName: "PERMISSION", baseTableSchemaName: "PUBLIC", constraintName: "FKE125C5CF8ED0FA40", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "USER", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
+			column(name: "study_description", type: "varchar(255)")
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-12") {
-		addForeignKeyConstraint(baseColumnNames: "HEART_BEAT_STUDY_ID", baseTableName: "PREFERENCE", baseTableSchemaName: "PUBLIC", constraintName: "FKA8FCBCDBEA4F57A4", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "STUDY", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-13") {
-		addForeignKeyConstraint(baseColumnNames: "USER_ID", baseTableName: "QUERY_SESSION", baseTableSchemaName: "PUBLIC", constraintName: "FK6A2DFA1F8ED0FA40", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "USER", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-14") {
-		addForeignKeyConstraint(baseColumnNames: "MACHINE_ID", baseTableName: "STUDY_MACHINES", baseTableSchemaName: "PUBLIC", constraintName: "FKA899DAC2C667634", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "MACHINE", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-15") {
-		addForeignKeyConstraint(baseColumnNames: "STUDY_ID", baseTableName: "STUDY_MACHINES", baseTableSchemaName: "PUBLIC", constraintName: "FKA899DAC2CAEA9D74", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "STUDY", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-16") {
-		addForeignKeyConstraint(baseColumnNames: "MACHINE_ID", baseTableName: "USER_MACHINE", baseTableSchemaName: "PUBLIC", constraintName: "FK8C20DBD3C667634", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "MACHINE", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-17") {
-		addForeignKeyConstraint(baseColumnNames: "USER_HOMESITES_ID", baseTableName: "USER_MACHINE", baseTableSchemaName: "PUBLIC", constraintName: "FK8C20DBD3AE998E32", deferrable: "false", initiallyDeferred: "false", onDelete: "RESTRICT", onUpdate: "RESTRICT", referencedColumnNames: "ID", referencedTableName: "USER", referencedTableSchemaName: "PUBLIC", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-18") {
-		createIndex(indexName: "CONSTRAINT_INDEX_5", tableName: "MACHINE", unique: "true") {
-			column(name: "NAME")
+			column(name: "study_name", type: "varchar(255)") {
+				constraints(nullable: "false")
+			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-19") {
-		createIndex(indexName: "CONSTRAINT_INDEX_F", tableName: "PERMISSION", unique: "true") {
-			column(name: "STUDY_ID")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-7") {
+		createTable(tableName: "study_machines") {
+			column(name: "machine_id", type: "bigint") {
+				constraints(nullable: "false")
+			}
 
-			column(name: "USER_ID")
+			column(name: "study_id", type: "bigint") {
+				constraints(nullable: "false")
+			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-20") {
-		createIndex(indexName: "CONSTRAINT_INDEX_4", tableName: "STUDY", unique: "true") {
-			column(name: "STUDY_NAME")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-8") {
+		createTable(tableName: "user") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "userPK")
+			}
+
+			column(name: "version", type: "bigint") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "institution_name", type: "varchar(255)")
+
+			column(name: "is_admin", type: "boolean") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "is_system_user", type: "boolean") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "real_name", type: "varchar(255)")
+
+			column(name: "user_name", type: "varchar(255)") {
+				constraints(nullable: "false")
+			}
 		}
 	}
 
-	changeSet(author: "davidortiz (generated)", id: "1350566373485-21") {
-		createIndex(indexName: "CONSTRAINT_INDEX_2", tableName: "USER", unique: "true") {
-			column(name: "USER_NAME")
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-9") {
+		createTable(tableName: "user_machine") {
+			column(name: "user_homesites_id", type: "bigint")
+
+			column(name: "machine_id", type: "bigint")
+		}
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-10") {
+		addPrimaryKey(columnNames: "study_id, machine_id", tableName: "study_machines")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-11") {
+		addForeignKeyConstraint(baseColumnNames: "study_id", baseTableName: "permission", constraintName: "FKE125C5CFCAEA9D74", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "study", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-12") {
+		addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "permission", constraintName: "FKE125C5CF8ED0FA40", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "user", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-13") {
+		addForeignKeyConstraint(baseColumnNames: "heart_beat_study_id", baseTableName: "preference", constraintName: "FKA8FCBCDBEA4F57A4", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "study", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-14") {
+		addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "query_session", constraintName: "FK6A2DFA1F8ED0FA40", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "user", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-15") {
+		addForeignKeyConstraint(baseColumnNames: "machine_id", baseTableName: "status", constraintName: "FKCACDCFF2C667634", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "machine", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-16") {
+		addForeignKeyConstraint(baseColumnNames: "machine_id", baseTableName: "study_machines", constraintName: "FKA899DAC2C667634", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "machine", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-17") {
+		addForeignKeyConstraint(baseColumnNames: "study_id", baseTableName: "study_machines", constraintName: "FKA899DAC2CAEA9D74", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "study", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-18") {
+		addForeignKeyConstraint(baseColumnNames: "machine_id", baseTableName: "user_machine", constraintName: "FK8C20DBD3C667634", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "machine", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-19") {
+		addForeignKeyConstraint(baseColumnNames: "user_homesites_id", baseTableName: "user_machine", constraintName: "FK8C20DBD3AE998E32", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "user", referencesUniqueColumn: "false")
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-20") {
+		createIndex(indexName: "name_unique_1364411514110", tableName: "machine", unique: "true") {
+			column(name: "name")
+		}
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-21") {
+		createIndex(indexName: "unique-user_id", tableName: "permission") {
+			column(name: "study_id")
+
+			column(name: "user_id")
+		}
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-22") {
+		createIndex(indexName: "study_name_unique_1364411514140", tableName: "study", unique: "true") {
+			column(name: "study_name")
+		}
+	}
+
+	changeSet(author: "davidortiz (generated)", id: "1364411514186-23") {
+		createIndex(indexName: "user_name_unique_1364411514146", tableName: "user", unique: "true") {
+			column(name: "user_name")
 		}
 	}
 }

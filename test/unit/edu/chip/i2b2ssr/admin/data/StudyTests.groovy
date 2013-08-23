@@ -8,6 +8,7 @@ import grails.test.mixin.*
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(Study)
+@Mock([Study,Machine])
 class StudyTests {
 
     void testAddBasicStudy() {

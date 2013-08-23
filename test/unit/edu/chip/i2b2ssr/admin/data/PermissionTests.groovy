@@ -19,9 +19,14 @@ class PermissionTests {
 
         //Test basic persistence
         User u = new User(userName: "Dave", realName: "Dave Ortiz", institutionName: "test")
-        Permission p = new Permission()
+        u.save(failOnError: true, flush: true)
+
+        Permission p = new Permission(user: u, allowPdo: true,allowSiteIdentify: true,study: s)
+        p.save(failOnError: true)
         u.addToPermissions(p)
-        p.setStudy(s)
+
+        u = User.get(1)
+
 
       assertEquals(true, u.permissions.contains(p))
       assertEquals(true, p.study.equals(s))

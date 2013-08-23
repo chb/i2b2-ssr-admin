@@ -3,7 +3,7 @@ class SecurityFilters {
 
   def filters = {
 
-    all(controller: '(user|machine|study|permission|status|console)', action: '*') {
+    all(controller: '(user|machine|preference|study|permission|status|console)', action: '*') {
       before = {
         if(actionName == "login" || actionName == "auth" || (session?.user?.isAdmin == true)) {
           return true

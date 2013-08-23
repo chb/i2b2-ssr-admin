@@ -2,6 +2,8 @@ package edu.chip.i2b2ssr.admin.data
 
 class User {
 
+    public static String SYSTEM_USER = "systemJobUser"
+
     String userName
     String realName
     String institutionName
@@ -24,5 +26,4 @@ class User {
 
     }
 
-    static String SYSTEM_USER = "systemJobUser"
 }
