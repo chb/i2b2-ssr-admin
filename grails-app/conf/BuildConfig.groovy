@@ -22,7 +22,7 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-
+        mavenCentral()
         mavenLocal()
 
         mavenRepo("http://repo.open.med.harvard.edu/nexus/content/repositories/releases")
